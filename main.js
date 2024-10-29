@@ -19,10 +19,16 @@ function drawPixelmap() {
 }
 
 function setPixel(x, y, color) {
+  if (x < 0 || x >= 256 || y < 0 || y >= 144) {
+    return;
+  }
   pixelmap[y][x] = color;
 }
 
 function getPixel(x, y) {
+  if (x < 0 || x >= 256 || y < 0 || y >= 144) {
+    return;
+  }
   return pixelmap[y][x];
 }
 
@@ -225,15 +231,6 @@ function drawSprite(x, y, sprite) {
   }
 }
 
-testSprite = [
-  ["#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b"],
-  ["#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b"],
-  ["#ff6b6b", "#ff6b6b", "#339af0", "#339af0", "#ff6b6b", "#ff6b6b"],
-  ["#ff6b6b", "#ff6b6b", "#339af0", "#339af0", "#ff6b6b", "#ff6b6b"],
-  ["#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b"],
-  ["#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b"]
-];
-
 async function getImageHexArray(link) {
   const response = await fetch(link);
   const blob = await response.blob();
@@ -287,32 +284,99 @@ function resizeHexArray(hexArray, newWidth, newHeight) {
   return resized;
 }
 
-getImageHexArray("https://raw.githubusercontent.com/R74nCom/R74n-Main/main/pixelflags/png/country/united_states.png").then(hexArray => {
-  drawSprite(10, 100, hexArray);
-});
-getImageHexArray("https://raw.githubusercontent.com/R74nCom/R74n-Main/main/pixelflags/png/country/united_kingdom.png").then(hexArray => {
-  drawSprite(50, 100, hexArray);
-});
-getImageHexArray("https://i.imgur.com/UniMfif.png").then(hexArray => {
-  rickroll = resizeHexArray(hexArray, 50, 50);
-
-  drawSprite(200, 80, rickroll);
-});
-
-function draw() {
-  drawRect(3, 3, 10, 10, "#343a40", true);
-  drawEllipse(10, 10, 80, 80, "#343a40", true);
-  drawLine(80, 80, 90, 120, "#343a40");
-  drawQuad(100, 10, 150, 20, 140, 50, 115, 40, "#343a40", true);
-  drawTriangle(120, 75, 200, 50, 150, 100, "#343a40", true);
-  drawPolygon([[200, 20], [210,3], [220,6], [230, 50], [215, 70]], "#343a40", true);
-  drawSprite(20, 25, testSprite);
+function drawText(text, x, y, color) {
+  let currentX = x;
+  
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    
+    if (!pixel_sansArray[char]) continue;
+    
+    let charArray = pixel_sansArray[char];
+    
+    let maxWidth = 0;
+    for (let row = 0; row < charArray.length - 2; row++) {
+      const pixels = charArray[row];
+      for (let col = pixels.length - 1; col >= 4; col--) {
+        if (pixels[col] === '.') {
+          maxWidth = Math.max(maxWidth, col - 4);
+          break;
+        }
+      }
+    }
+    
+    for (let row = 0; row < charArray.length - 2; row++) {
+      const pixels = charArray[row];
+      for (let col = 4; col < pixels.length; col++) {
+        if (pixels[col] === '.') {
+          setPixel(currentX + (col - 4), y + (row - 2), color);
+        }
+      }
+    }
+    
+    currentX += maxWidth + 2;
+  }
 }
 
-draw();
-drawPixelmap();
+let mouseX = 0;
+let mouseY = 0;
+let mouseXold = 0;
+let mouseYold = 0;
+let mouseDown = false;
 
-setInterval(() => {
-  draw();
-  drawPixelmap();
-}, 300);
+function getMousePos(event) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  
+  mouseX = Math.floor((event.clientX - rect.left) * scaleX);
+  mouseY = Math.floor((event.clientY - rect.top) * scaleY);
+  return [mouseX, mouseY];
+}
+
+canvas.addEventListener('mousemove', (event) => {
+  getMousePos(event);
+  /* if (mouseDown) {
+    drawLine(mouseXold, mouseYold, mouseX, mouseY, "#343a40");
+    drawPixelmap();
+  } */
+  mouseXold = mouseX;
+  mouseYold = mouseY;
+});
+
+let mouseDownRight = false;
+
+canvas.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+});
+
+canvas.addEventListener('mousedown', (event) => {
+  if (event.button === 0) {
+    mouseDown = true;
+  }
+  if (event.button === 2) {
+    mouseDownRight = true;
+  }
+});
+
+canvas.addEventListener('mouseup', (event) => {
+  if (event.button === 0) {
+    mouseDown = false;
+  }
+  if (event.button === 2) {
+    mouseDownRight = false;
+  }
+});
+
+canvas.addEventListener('mouseleave', () => {
+  mouseDown = false;
+  mouseDownRight = false;
+});
+
+canvas.addEventListener('wheel', (event) => {
+  if (event.deltaY < 0) {
+    onScrollUp();
+  } else {
+    onScrollDown();
+  }
+});

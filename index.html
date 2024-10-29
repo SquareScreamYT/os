@@ -15,16 +15,25 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    canvas {
+    #pixelCanvas {
       border: 2px solid #adb5bd;
       width: calc(100vmin - 40px);
-      height: calc(57vmin - 40px); /* meant to be 56.25vmin but it was kinda off */
+      height: calc(57vmin - 40px);
       image-rendering: pixelated;
+    }
+    #fontCanvas {
+      position: absolute;
+      visibility: hidden;
+      width: 1px;
+      height: 1px;
     }
   </style>
 </head>
 <body>
   <canvas id="pixelCanvas" width="256" height="144"></canvas>
+  <canvas id="fontCanvas"></canvas>
+  <script src="font.js"></script>
   <script src="main.js"></script>
+  <script src="draw.js"></script>
 </body>
 </html>

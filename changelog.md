@@ -16,3 +16,12 @@
 - getImageHexArray()
 - resizeHexArray()
 - draw()
+
+## 1.0.1
+- mouseX
+- mouseY
+- onMouseDown()
+- onMouseDownRight()
+- onScrollUp()
+- onScrollDown()
+- drawText()
