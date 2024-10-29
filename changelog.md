@@ -28,3 +28,4 @@
   - drawText()
 Changed:
   - drawing functions are now in draw.js
+  - change example function colors
