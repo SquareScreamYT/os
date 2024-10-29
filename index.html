@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sqOS - Main</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8f9fa;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    canvas {
+      border: 2px solid #adb5bd;
+      width: calc(100vmin - 40px);
+      height: calc(57vmin - 40px); /* meant to be 56.25vmin but it was kinda off */
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pixelCanvas" width="256" height="144"></canvas>
+  <script src="main.js"></script>
+</body>
+</html>
