@@ -32,6 +32,14 @@ function getPixel(x, y) {
   return pixelmap[y][x];
 }
 
+function clearCanvas() {
+  for (let y = 0; y < pixelmap.length; y++) {
+    for (let x = 0; x < pixelmap[y].length; x++) {
+      pixelmap[y][x] = "#f8f9fa";
+    }
+  }
+}
+
 function drawLine(x1, y1, x2, y2, color) {
   const dx = Math.abs(x2 - x1);
   const dy = Math.abs(y2 - y1);
@@ -344,6 +352,25 @@ canvas.addEventListener('mousemove', (event) => {
   mouseYold = mouseY;
 });
 
+let wasMouseDown = false;
+let wasMouseDownRight = false;
+
+function onInitialMouseDown() {
+  if (!wasMouseDown && mouseDown) {
+    onMouseClick();
+    wasMouseDown = true;
+  } else if (!mouseDown) {
+    wasMouseDown = false;
+  }
+
+  if (!wasMouseDownRight && mouseDownRight) {
+    onMouseClickRight();
+    wasMouseDownRight = true;
+  } else if (!mouseDownRight) {
+    wasMouseDownRight = false;
+  }
+}
+
 let mouseDownRight = false;
 
 canvas.addEventListener('contextmenu', (event) => {
@@ -362,9 +389,11 @@ canvas.addEventListener('mousedown', (event) => {
 canvas.addEventListener('mouseup', (event) => {
   if (event.button === 0) {
     mouseDown = false;
+    onMouseUp();
   }
   if (event.button === 2) {
     mouseDownRight = false;
+    onMouseUpRight();
   }
 });
 
@@ -380,3 +409,5 @@ canvas.addEventListener('wheel', (event) => {
     onScrollDown();
   }
 });
+
+tick = 0;

@@ -29,3 +29,14 @@
 Changed:
   - drawing functions are now in draw.js
   - change example function colors
+
+## 1.0.2
+- Added:
+  - onMouseUp()
+  - onMouseUpRight()
+  - onMouseClick()
+  - onMouseClickRight()
+  - clearCanvas()
+  - tick
+- Changed:
+  - tps is now 20

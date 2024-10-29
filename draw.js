@@ -20,6 +20,7 @@ getImageHexArray("https://i.imgur.com/UniMfif.png").then(hexArray => {
 });
 
 function draw() {
+  clearCanvas();
   drawRect(3, 3, 10, 10, "#343a40", true);
   drawEllipse(10, 10, 80, 80, "#22b8cf", true);
   drawLine(80, 80, 90, 120, "#51cf66");
@@ -28,22 +29,42 @@ function draw() {
   drawPolygon([[200, 20], [210,3], [220,6], [230, 50], [215, 70]], "#ff922b", true);
   drawSprite(20, 25, testSprite);
   drawText("Hello, world! ǙķǄƺȹⱲ", 10, 130, "#343a40");
+  drawText("Tick: " + tick, 10, 120, "#343a40");
 
   if (mouseDown) {
-    onMouseDownLeft();
+    onMouseDown();
   }
 
   if (mouseDownRight) {
     onMouseDownRight();
   }
+
+  onInitialMouseDown();
 }
 
-function onMouseDownLeft() {
+
+function onMouseDown() {
 
 }
 
 function onMouseDownRight() {
 
+}
+
+function onMouseUp() {
+  
+}
+
+function onMouseUpRight() {
+  
+}
+
+function onMouseClick() {
+  
+}
+
+function onMouseClickRight() {
+  
 }
 
 function onScrollUp() {
@@ -60,4 +81,5 @@ drawPixelmap();
 setInterval(() => {
   draw();
   drawPixelmap();
-}, 300);
+  tick++;
+}, 50);
