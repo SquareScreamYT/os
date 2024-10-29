@@ -234,22 +234,6 @@ testSprite = [
   ["#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b"]
 ];
 
-function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
-  const angle = Math.PI / spikes;
-  let path = [];
-
-  for (let i = 0; i < spikes * 2; i++) {
-    const r = (i % 2 === 0) ? outerRadius : innerRadius;
-    const theta = i * angle;
-    const x = cx + r * Math.cos(theta);
-    const y = cy + r * Math.sin(theta);
-    path.push([x, y]);
-  }
-
-  // Draw star shape using the path
-  drawPolygon(path, "#ffffff", true);
-}
-
 async function getImageHexArray(link) {
   const response = await fetch(link);
   const blob = await response.blob();
