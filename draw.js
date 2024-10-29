@@ -7,16 +7,15 @@ testSprite = [
   ["#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b", "#ff6b6b"]
 ];
 
+let USASprite, UKSprite, rickroll;
 getImageHexArray("https://raw.githubusercontent.com/R74nCom/R74n-Main/main/pixelflags/png/country/united_states.png").then(hexArray => {
-  drawSprite(10, 100, hexArray);
+  USASprite = hexArray
 });
 getImageHexArray("https://raw.githubusercontent.com/R74nCom/R74n-Main/main/pixelflags/png/country/united_kingdom.png").then(hexArray => {
-  drawSprite(50, 100, hexArray);
+  UKSprite = hexArray
 });
 getImageHexArray("https://i.imgur.com/UniMfif.png").then(hexArray => {
   rickroll = resizeHexArray(hexArray, 50, 50);
-
-  drawSprite(200, 80, rickroll);
 });
 
 function draw() {
@@ -28,8 +27,11 @@ function draw() {
   drawTriangle(120, 75, 200, 50, 150, 100, "#fcc419", true);
   drawPolygon([[200, 20], [210,3], [220,6], [230, 50], [215, 70]], "#ff922b", true);
   drawSprite(20, 25, testSprite);
-  drawText("Hello, world! ǙķǄƺȹⱲ", 10, 130, "#343a40");
-  drawText("Tick: " + tick, 10, 120, "#343a40");
+  drawText("Hello, world! ǙķǄƺȹⱲ", 10, 133, "#343a40");
+  drawText("Tick: " + tick + " X: " + mouseX + " Y: " + mouseY, 10, 120, "#343a40");
+  drawSprite(200, 80, rickroll);
+  drawSprite(10, 100, USASprite);
+  drawSprite(50, 100, UKSprite);
 
   if (mouseDown) {
     onMouseDown();
@@ -74,9 +76,6 @@ function onScrollUp() {
 function onScrollDown() {
 
 }
-
-draw();
-drawPixelmap();
 
 setInterval(() => {
   draw();

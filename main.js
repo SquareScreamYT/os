@@ -77,6 +77,13 @@ function drawRect(x1, y1, x2, y2, color, fill) {
 }
 
 function drawEllipse(x1, y1, x2, y2, color, fill) {
+  if ( (x2 - x1) % 2 !== 0 ) {
+    x2--;
+  }
+  if ( (y2 - y1) % 2 !== 0 ) {
+    y2--;
+  }
+  
   const centerX = Math.floor((x1 + x2) / 2);
   const centerY = Math.floor((y1 + y2) / 2);
   const radiusX = Math.abs(x2 - x1) / 2;
