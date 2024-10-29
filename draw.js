@@ -21,11 +21,11 @@ getImageHexArray("https://i.imgur.com/UniMfif.png").then(hexArray => {
 
 function draw() {
   drawRect(3, 3, 10, 10, "#343a40", true);
-  drawEllipse(10, 10, 80, 80, "#343a40", true);
-  drawLine(80, 80, 90, 120, "#343a40");
-  drawQuad(100, 10, 150, 20, 140, 50, 115, 40, "#343a40", true);
-  drawTriangle(120, 75, 200, 50, 150, 100, "#343a40", true);
-  drawPolygon([[200, 20], [210,3], [220,6], [230, 50], [215, 70]], "#343a40", true);
+  drawEllipse(10, 10, 80, 80, "#22b8cf", true);
+  drawLine(80, 80, 90, 120, "#51cf66");
+  drawQuad(100, 10, 150, 20, 140, 50, 115, 40, "#51cf66", true);
+  drawTriangle(120, 75, 200, 50, 150, 100, "#fcc419", true);
+  drawPolygon([[200, 20], [210,3], [220,6], [230, 50], [215, 70]], "#ff922b", true);
   drawSprite(20, 25, testSprite);
   drawText("Hello, world! ǙķǄƺȹⱲ", 10, 130, "#343a40");
 
