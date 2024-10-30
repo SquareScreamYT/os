@@ -29,9 +29,9 @@ function draw() {
   drawSprite(20, 25, testSprite);
   drawText("Hello, world! ǙķǄƺȹⱲ", 10, 133, "#343a40");
   drawText("Tick: " + tick + " X: " + mouseX + " Y: " + mouseY, 10, 120, "#343a40");
-  drawSprite(200, 80, rickroll);
-  drawSprite(10, 100, USASprite);
-  drawSprite(50, 100, UKSprite);
+  if (rickroll) drawSprite(200, 80, rickroll);
+  if (USASprite) drawSprite(10, 100, USASprite);
+  if (UKSprite) drawSprite(50, 100, UKSprite);
 
   if (mouseDown) {
     onMouseDown();
@@ -77,8 +77,18 @@ function onScrollDown() {
 
 }
 
-setInterval(() => {
-  draw();
-  drawPixelmap();
-  tick++;
-}, 50);
+const FPS = 40;
+const frameDelay = 1000 / FPS;
+let lastFrameTime = 0;
+
+function gameLoop(timestamp) {
+  if (timestamp - lastFrameTime > frameDelay) {
+    draw();
+    drawPixelmap();
+    tick++;
+    lastFrameTime = timestamp;
+  }
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);

@@ -40,3 +40,8 @@ Changed:
   - tick
 - Changed:
   - tps is now 20
+
+## 1.0.3
+- Changed:
+  - tps is now 40
+  - faster rendering

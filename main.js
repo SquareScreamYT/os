@@ -1,3 +1,6 @@
+const CANVAS_WIDTH = 256;
+const CANVAS_HEIGHT = 144;
+
 const pixelmap = [];
 for (let y = 0; y < 144; y++) {
   pixelmap[y] = [];
@@ -7,21 +10,48 @@ for (let y = 0; y < 144; y++) {
 }
 
 const canvas = document.getElementById("pixelCanvas");
-const ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d", {alpha: false});
+ctx.imageSmoothingEnabled = false;
+
+const colorCache = new Map();
+
+function parseColor(hex) {
+  if (colorCache.has(hex)) {
+    return colorCache.get(hex);
+  }
+  
+  const rgb = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  const color = [
+    parseInt(rgb[1], 16),
+    parseInt(rgb[2], 16), 
+    parseInt(rgb[3], 16)
+  ];
+  
+  colorCache.set(hex, color);
+  return color;
+}
 
 function drawPixelmap() {
-  for (let y = 0; y < pixelmap.length; y++) {
-    for (let x = 0; x < pixelmap[y].length; x++) {
-      ctx.fillStyle = pixelmap[y][x];
-      ctx.fillRect(x, y, 1, 1); 
+  const imageData = ctx.createImageData(256, 144);
+  const data = imageData.data;
+  const buffer = new Uint32Array(data.buffer);
+  
+  for (let y = 0; y < 144; y++) {
+    for (let x = 0; x < 256; x++) {
+      const rgb = parseColor(pixelmap[y][x]);
+      buffer[y * 256 + x] = 
+        (255 << 24) |
+        (rgb[2] << 16) |
+        (rgb[1] << 8) |
+        rgb[0]; 
     }
   }
+  
+  ctx.putImageData(imageData, 0, 0);
 }
 
 function setPixel(x, y, color) {
-  if (x < 0 || x >= 256 || y < 0 || y >= 144) {
-    return;
-  }
+  if (x < 0 || x >= 256 || y < 0 || y >= 144) return;
   pixelmap[y][x] = color;
 }
 
@@ -237,11 +267,22 @@ function drawPolygon(points, color, fill) {
 }
 
 function drawSprite(x, y, sprite) {
-  for (let sy = 0; sy < sprite.length; sy++) {
-    for (let sx = 0; sx < sprite[sy].length; sx++) {
-      if (sprite[sy][sx] === "none") continue;
-
-      setPixel(x + sx, y + sy, sprite[sy][sx]);
+  const maxY = Math.min(sprite.length, CANVAS_HEIGHT - y);
+  const maxX = Math.min(sprite[0].length, CANVAS_WIDTH - x);
+  
+  for (let sy = 0; sy < maxY; sy++) {
+    const row = sprite[sy];
+    const targetY = y + sy;
+    if (targetY < 0) continue;
+    
+    for (let sx = 0; sx < maxX; sx++) {
+      const targetX = x + sx;
+      if (targetX < 0) continue;
+      
+      const color = row[sx];
+      if (color !== "none") {
+        pixelmap[targetY][targetX] = color;
+      }
     }
   }
 }
