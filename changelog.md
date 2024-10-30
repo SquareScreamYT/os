@@ -45,3 +45,8 @@ Changed:
 - Changed:
   - tps is now 40
   - faster rendering
+
+## 1.0.4
+- Changed:
+  - tps is now 60
+  - updates only changed pixels

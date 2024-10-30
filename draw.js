@@ -77,7 +77,7 @@ function onScrollDown() {
 
 }
 
-const FPS = 40;
+const FPS = 60;
 const frameDelay = 1000 / FPS;
 let lastFrameTime = 0;
 
