@@ -10,7 +10,7 @@ for (let y = 0; y < 144; y++) {
 }
 
 const canvas = document.getElementById("pixelCanvas");
-const ctx = canvas.getContext("2d", {alpha: false});
+const ctx = canvas.getContext("2d", {alpha: false, willReadFrequently: true});
 ctx.imageSmoothingEnabled = false;
 
 const colorCache = new Map();
@@ -458,6 +458,18 @@ canvas.addEventListener('wheel', (event) => {
   } else {
     onScrollDown();
   }
+});
+
+document.addEventListener('keypress', (event) => {
+  onKeyPress(event.key);
+});
+
+document.addEventListener('keydown', (event) => {
+  onKeyDown(event.key);
+});
+
+document.addEventListener('keyup', (event) => {
+  onKeyUp(event.key);
 });
 
 tick = 0;

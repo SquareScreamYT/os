@@ -77,6 +77,21 @@ function onScrollDown() {
 
 }
 
+function onKeyPress(key) {
+  console.log(`Key pressed: ${key}`);
+  // Add your key press handling logic here
+}
+
+function onKeyDown(key) {
+  console.log(`Key down: ${key}`);
+  // Add your key down handling logic here
+}
+
+function onKeyUp(key) {
+  console.log(`Key up: ${key}`);
+  // Add your key up handling logic here
+}
+
 const FPS = 60;
 const frameDelay = 1000 / FPS;
 let lastFrameTime = 0;
