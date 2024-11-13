@@ -460,16 +460,22 @@ canvas.addEventListener('wheel', (event) => {
   }
 });
 
+const keysPressed = {};
+
 document.addEventListener('keypress', (event) => {
-  onKeyPress(event.key);
+  if (!keysPressed[event.key]) {
+    keysPressed[event.key] = true;
+    onKeyPress(event.key);
+  }
+});
+
+document.addEventListener('keyup', (event) => {
+  keysPressed[event.key] = false;
+  onKeyUp(event.key);
 });
 
 document.addEventListener('keydown', (event) => {
   onKeyDown(event.key);
-});
-
-document.addEventListener('keyup', (event) => {
-  onKeyUp(event.key);
 });
 
 tick = 0;
