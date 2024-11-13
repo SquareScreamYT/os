@@ -387,6 +387,7 @@ function blackToTransparent(hexArray) {
   return hexArray;
 }
 
+let mouseXoldold, mouseYoldold;
 let mouseX = 0;
 let mouseY = 0;
 let mouseXold = 0;

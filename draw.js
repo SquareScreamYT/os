@@ -102,6 +102,8 @@ function gameLoop(timestamp) {
     drawPixelmap();
     tick++;
     lastFrameTime = timestamp;
+    mouseXoldold = mouseXold;
+    mouseYoldold = mouseYold;
   }
   requestAnimationFrame(gameLoop);
 }

@@ -6,8 +6,15 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/mai
   pointerSprite = blackToTransparent(hexArray)
 });
 
+let drawnLines = [];
+
 function draw() {
   clearCanvas();
+
+  for (let line of drawnLines) {
+    drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
+  }
+
   if (cursorSprite) { drawSprite(mouseX-1, mouseY, cursorSprite); }
 
   if (mouseDown) {
@@ -23,7 +30,15 @@ function draw() {
 
 
 function onMouseDown() {
-
+  drawLine(mouseXoldold, mouseYoldold, mouseX, mouseY, "#ff6b6b");
+  
+  drawnLines.push({
+    x1: mouseXoldold,
+    y1: mouseYoldold,
+    x2: mouseX,
+    y2: mouseY,
+    color: "#ff6b6b"
+  });
 }
 
 function onMouseDownRight() {
@@ -79,6 +94,8 @@ function gameLoop(timestamp) {
     drawPixelmap();
     tick++;
     lastFrameTime = timestamp;
+    mouseXoldold = mouseXold;
+    mouseYoldold = mouseYold;
   }
   requestAnimationFrame(gameLoop);
 }
