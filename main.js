@@ -376,6 +376,17 @@ function drawText(text, x, y, color) {
   }
 }
 
+function blackToTransparent(hexArray) {
+  for (let y = 0; y < hexArray.length; y++) {
+    for (let x = 0; x < hexArray[y].length; x++) {
+      if (hexArray[y][x] == "#000000") {
+        hexArray[y][x] = "none";
+      }
+    }
+  }
+  return hexArray;
+}
+
 let mouseX = 0;
 let mouseY = 0;
 let mouseXold = 0;

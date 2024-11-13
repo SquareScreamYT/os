@@ -1,14 +1,14 @@
 let cursorSprite, pointerSprite;
-getImageHexArray("/images/cursor.png").then(hexArray => {
-  cursorSprite = hexArray
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/cursor.png").then(hexArray => {
+  cursorSprite = blackToTransparent(hexArray)
 });
-getImageHexArray("/images/pointer.png").then(hexArray => {
-  pointerSprite = hexArray
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/pointer.png").then(hexArray => {
+  pointerSprite = blackToTransparent(hexArray)
 });
 
 function draw() {
   clearCanvas();
-  drawSprite(mouseX, mouseY, cursorSprite);
+  if (cursorSprite) { drawSprite(mouseX-1, mouseY, cursorSprite); }
 
   if (mouseDown) {
     onMouseDown();
