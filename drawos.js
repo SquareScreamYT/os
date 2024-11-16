@@ -1,15 +1,23 @@
-let cursorSprite, pointerSprite;
+let cursorSprite, pointerSprite, logoSprite;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/pointer.png").then(hexArray => {
   pointerSprite = blackToTransparent(hexArray)
 });
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/logo.png").then(hexArray => {
+  logoSprite = blackToTransparent(hexArray)
+});
 
 let drawnLines = [];
 
 function draw() {
   clearCanvas();
+
+  // menu bar
+  drawRect(0, 0, 254, 8, "#ced4da", true);
+  // logo
+  if (cursorSprite) { drawSprite(0, 0, logoSprite); }
 
   for (let line of drawnLines) {
     drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
