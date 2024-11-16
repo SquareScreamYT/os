@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, logoSprite;
+let cursorSprite, pointerSprite, logoSprite, backgroundSprite;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
@@ -8,6 +8,11 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/mai
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/logo.png").then(hexArray => {
   logoSprite = blackToTransparent(hexArray)
 });
+// image from freepik
+// https://www.freepik.com/free-photo/black-suv-snow-covered-field-green-aurora-lights_12687247.htm
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/background.png").then(hexArray => {
+  backgroundSprite = resizeHexArray(hexArray, 256, 144);
+});
 
 let drawnLines = [];
 let lastTimeUpdate = 0;
@@ -16,7 +21,12 @@ let displayDate = '';
 
 function draw() {
   clearCanvas();
-  drawRect(0, 0, 255, 144, "#343a40", true);
+
+  // dark background
+  // drawRect(0, 0, 255, 144, "#343a40", true);
+
+  // aurora borealis background
+  drawSprite(0, 0, backgroundSprite);
 
   // menu bar
   drawRect(0, 0, 255, 9, "#495057", true);
@@ -41,6 +51,8 @@ function draw() {
   }
   drawText(displayTime, 223, 2, "#f8f9fa", "small");
   drawText(displayDate, 170, 2, "#f8f9fa", "small");
+
+
 
   for (let line of drawnLines) {
     drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
