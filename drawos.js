@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, logoSprite, backgroundSprite;
+let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
@@ -14,25 +14,30 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/mai
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/jayd/blue.png").then(hexArray => {
   backgroundSprite = resizeHexArray(hexArray, 256, 144);
 });
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/calculator.png").then(hexArray => {
+  calculatorSprite =blackToTransparent(hexArray);
+});
 
 let drawnLines = [];
 let lastTimeUpdate = 0;
 let displayTime = '';
 let displayDate = '';
+currentApp = "desktop";
+currentCursor = "cursor";
 
 function draw() {
   clearCanvas();
 
   // dark background
-  // drawRect(0, 0, 255, 144, "#343a40", true);
+  drawRect(0, 0, 255, 144, "#343a40", true);
 
   // blue background
-  if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
+  // if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
 
   // menu bar
   drawRect(0, 0, 255, 9, "#495057", true);
   // logo
-  if (cursorSprite) { drawSprite(1, 1, logoSprite); }
+  if (logoSprite) { drawSprite(1, 1, logoSprite); }
   // time & date
   const currentTimestamp = Math.floor(Date.now() / 1000);
   if (currentTimestamp > lastTimeUpdate) {
@@ -43,7 +48,7 @@ function draw() {
       minute: '2-digit',
       second: '2-digit'
     });
-    displayDate = now.toLocaleDateString('en-US', {
+    displayDate = now.toLocaleDateString('en-UK', {
       day: '2-digit',
       month: 'short',
       year: 'numeric'
@@ -53,8 +58,11 @@ function draw() {
   drawText(displayTime, 223, 2, "#f8f9fa", "small");
   drawText(displayDate, 170, 2, "#f8f9fa", "small");
   // taskbar
-  drawRect(64, 131, 191, 142, "#868e96", true);
-  drawRect(65, 130, 190, 143, "#868e96", true);
+  drawRect(64, 132, 191, 142, "#868e96", true);
+  drawRect(65, 131, 190, 143, "#868e96", true);
+
+  // calculator icon
+  if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
 
 
 
@@ -62,7 +70,13 @@ function draw() {
     drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
   }
 
-  if (cursorSprite) { drawSprite(mouseX-1, mouseY, cursorSprite); }
+  if (isMouseWithin(66, 134, 66+6, 134+8)) {
+    currentCursor = "pointer";
+  } else {
+    currentCursor = "cursor";
+  }
+  if (cursorSprite && currentCursor == "cursor") { drawSprite(mouseX-1, mouseY, cursorSprite); }
+  if (pointerSprite && currentCursor == "pointer") { drawSprite(mouseX-1, mouseY, pointerSprite); }
 
   if (mouseDown) {
     onMouseDown();

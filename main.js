@@ -401,6 +401,14 @@ function blackToTransparent(hexArray) {
   return hexArray;
 }
 
+function isMouseWithin(x1, y1, x2, y2) {
+  if (mouseX >= x1 && mouseX <= x2 && mouseY >= y1 && mouseY <= y2) {
+    return true;
+  } else  {
+    return false;
+  }
+}
+
 let mouseXoldold, mouseYoldold;
 let mouseX = 0;
 let mouseY = 0;
