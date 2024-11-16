@@ -30,7 +30,9 @@ function draw() {
   if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
 
   // menu bar
-  drawRect(0, 0, 255, 9, "#495057", true);
+  // for black
+  // drawRect(0, 0, 255, 9, "#495057", true);
+  drawRect(0, 0, 255, 9, "#0b7285", true);
   // logo
   if (cursorSprite) { drawSprite(1, 1, logoSprite); }
   // time & date
