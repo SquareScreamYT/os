@@ -8,9 +8,10 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/mai
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/logo.png").then(hexArray => {
   logoSprite = blackToTransparent(hexArray)
 });
-// image from freepik
-// https://www.freepik.com/free-photo/black-suv-snow-covered-field-green-aurora-lights_12687247.htm
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/background.png").then(hexArray => {
+// image from jayd from discord
+// https://github.com/Jayd-Rubies
+// <@913241621288595469>
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/jayd/blue.png").then(hexArray => {
   backgroundSprite = resizeHexArray(hexArray, 256, 144);
 });
 
@@ -25,8 +26,8 @@ function draw() {
   // dark background
   // drawRect(0, 0, 255, 144, "#343a40", true);
 
-  // aurora borealis background
-  drawSprite(0, 0, backgroundSprite);
+  // blue background
+  if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
 
   // menu bar
   drawRect(0, 0, 255, 9, "#495057", true);
