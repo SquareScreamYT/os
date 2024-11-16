@@ -30,9 +30,7 @@ function draw() {
   if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
 
   // menu bar
-  // for black
-  // drawRect(0, 0, 255, 9, "#495057", true);
-  drawRect(0, 0, 255, 9, "#0b7285", true);
+  drawRect(0, 0, 255, 9, "#495057", true);
   // logo
   if (cursorSprite) { drawSprite(1, 1, logoSprite); }
   // time & date
@@ -54,6 +52,9 @@ function draw() {
   }
   drawText(displayTime, 223, 2, "#f8f9fa", "small");
   drawText(displayDate, 170, 2, "#f8f9fa", "small");
+  // taskbar
+  drawRect(64, 131, 191, 142, "#868e96", true);
+  drawRect(65, 130, 190, 143, "#868e96", true);
 
 
 
