@@ -10,14 +10,37 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/mai
 });
 
 let drawnLines = [];
+let lastTimeUpdate = 0;
+let displayTime = '';
+let displayDate = '';
 
 function draw() {
   clearCanvas();
+  drawRect(0, 0, 255, 144, "#343a40", true);
 
   // menu bar
-  drawRect(0, 0, 254, 8, "#ced4da", true);
+  drawRect(0, 0, 255, 9, "#495057", true);
   // logo
-  if (cursorSprite) { drawSprite(0, 0, logoSprite); }
+  if (cursorSprite) { drawSprite(1, 1, logoSprite); }
+  // time & date
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  if (currentTimestamp > lastTimeUpdate) {
+    const now = new Date();
+    displayTime = now.toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    displayDate = now.toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    }).toUpperCase();
+    lastTimeUpdate = currentTimestamp;
+  }
+  drawText(displayTime, 223, 2, "#f8f9fa", "small");
+  drawText(displayDate, 170, 2, "#f8f9fa", "small");
 
   for (let line of drawnLines) {
     drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
