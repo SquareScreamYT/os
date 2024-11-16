@@ -342,37 +342,51 @@ function resizeHexArray(hexArray, newWidth, newHeight) {
   return resized;
 }
 
-function drawText(text, x, y, color) {
+function drawText(text, x, y, color, font = 'pixel_sans') {
   let currentX = x;
   
   for (let i = 0; i < text.length; i++) {
-    const char = text[i];
-    
-    if (!pixel_sansArray[char]) continue;
-    
-    let charArray = pixel_sansArray[char];
-    
-    let maxWidth = 0;
-    for (let row = 0; row < charArray.length - 2; row++) {
-      const pixels = charArray[row];
-      for (let col = pixels.length - 1; col >= 4; col--) {
-        if (pixels[col] === '.') {
-          maxWidth = Math.max(maxWidth, col - 4);
-          break;
-        }
-      }
+    let char = text[i];
+    if (font === 'small') {
+      char = char.toUpperCase();
     }
     
-    for (let row = 0; row < charArray.length - 2; row++) {
-      const pixels = charArray[row];
-      for (let col = 4; col < pixels.length; col++) {
-        if (pixels[col] === '.') {
-          setPixel(currentX + (col - 4), y + (row - 2), color);
+    const fontArray = font === 'small' ? smallfont : pixel_sansArray;
+    if (!fontArray || !fontArray[char]) continue;
+    
+    const charArray = fontArray[char];
+    
+    if (font === 'small') {
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 3; col++) {
+          if (charArray[row][col] === '.') {
+            setPixel(currentX + col, y + row, color);
+          }
         }
       }
+      currentX += 4;
+    } else {
+      let maxWidth = 0;
+      for (let row = 0; row < charArray.length - 2; row++) {
+        const pixels = charArray[row];
+        for (let col = pixels.length - 1; col >= 4; col--) {
+          if (pixels[col] === '.') {
+            maxWidth = Math.max(maxWidth, col - 4);
+            break;
+          }
+        }
+      }
+      
+      for (let row = 0; row < charArray.length - 2; row++) {
+        const pixels = charArray[row];
+        for (let col = 4; col < pixels.length; col++) {
+          if (pixels[col] === '.') {
+            setPixel(currentX + (col - 4), y + (row - 2), color);
+          }
+        }
+      }
+      currentX += maxWidth + 2;
     }
-    
-    currentX += maxWidth + 2;
   }
 }
 

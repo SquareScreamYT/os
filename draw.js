@@ -28,6 +28,7 @@ function draw() {
   drawPolygon([[200, 20], [210,3], [220,6], [230, 50], [215, 70]], "#ff922b", true);
   drawSprite(20, 25, testSprite);
   drawText("Hello, world! ǙķǄƺȹⱲ", 10, 133, "#343a40");
+  drawText("HELLO!", 150, 30, "#343a40", "small");
   drawText("Tick: " + tick + " X: " + mouseX + " Y: " + mouseY, 10, 120, "#343a40");
   if (rickroll) drawSprite(200, 80, rickroll);
   if (USASprite) drawSprite(10, 100, USASprite);
