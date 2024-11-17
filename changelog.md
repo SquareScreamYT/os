@@ -50,3 +50,4 @@ Changed:
 - Changed:
   - tps is now 60
   - updates only changed pixels
+  - isMouseWithin()
