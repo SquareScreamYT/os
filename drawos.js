@@ -50,13 +50,13 @@ function draw() {
     });
     displayDate = now.toLocaleDateString('en-UK', {
       day: '2-digit',
-      month: 'short',
+      month: '2-digit',
       year: 'numeric'
     }).toUpperCase();
     lastTimeUpdate = currentTimestamp;
   }
   drawText(displayTime, 223, 2, "#f8f9fa", "small");
-  drawText(displayDate, 170, 2, "#f8f9fa", "small");
+  drawText(displayDate, 175, 2, "#f8f9fa", "small");
   // taskbar
   drawRect(64, 132, 191, 142, "#868e96", true);
   drawRect(65, 131, 190, 143, "#868e96", true);
