@@ -3,7 +3,7 @@
 ## 1.0.0
 - 256 x 144 canvas
 - Added:
-  - setPixel()
+  - setPixel() 
   - getPixel()
   - drawLine()
   - drawRect()
