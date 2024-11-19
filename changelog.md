@@ -8,7 +8,7 @@
   - drawLine()
   - drawRect()
   - drawEllipse()
-  - drawQuad()
+  - drawQuad() 
   - drawTriangle()
   - checkIntersection()
   - drawPolygon()
