@@ -12,7 +12,7 @@
   - drawTriangle() 
   - checkIntersection()
   - drawPolygon() 
-  - drawSprite()
+  - drawSprite() 
   - getImageHexArray()
   - resizeHexArray()
   - draw() 
