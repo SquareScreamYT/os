@@ -11,7 +11,7 @@
   - drawQuad() 
   - drawTriangle() 
   - checkIntersection()
-  - drawPolygon()
+  - drawPolygon() 
   - drawSprite()
   - getImageHexArray()
   - resizeHexArray()
