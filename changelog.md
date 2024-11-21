@@ -15,7 +15,7 @@
   - drawSprite()
   - getImageHexArray()
   - resizeHexArray()
-  - draw()
+  - draw() 
 
 ## 1.0.1
 - Added: 
