@@ -4,10 +4,10 @@
 - 256 x 144 canvas
 - Added:
   - setPixel() 
-  - getPixel()
+  - getPixel() 
   - drawLine()
   - drawRect()
-  - drawEllipse()
+  - drawEllipse() 
   - drawQuad() 
   - drawTriangle() 
   - checkIntersection()
