@@ -6,7 +6,7 @@
   - setPixel() 
   - getPixel() 
   - drawLine()
-  - drawRect()
+  - drawRect() 
   - drawEllipse() 
   - drawQuad() 
   - drawTriangle() 
