@@ -5,7 +5,7 @@
 - Added:
   - setPixel() 
   - getPixel() 
-  - drawLine()
+  - drawLine() 
   - drawRect() 
   - drawEllipse() 
   - drawQuad() 
