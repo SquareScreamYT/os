@@ -13,7 +13,7 @@
   - checkIntersection()
   - drawPolygon() 
   - drawSprite() 
-  - getImageHexArray()
+  - getImageHexArray() 
   - resizeHexArray()
   - draw() 
 
