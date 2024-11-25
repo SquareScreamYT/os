@@ -14,7 +14,7 @@
   - drawPolygon() 
   - drawSprite() 
   - getImageHexArray() 
-  - resizeHexArray()
+  - resizeHexArray() 
   - draw() 
 
 ## 1.0.1
