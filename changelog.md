@@ -1,5 +1,5 @@
 # sqRender Changelog
-
+ 
 ## 1.0.0
 - 256 x 144 canvas
 - Added:
@@ -16,7 +16,7 @@
   - getImageHexArray()
   - resizeHexArray()
   - draw()
-
+ 
 ## 1.0.1
 - Added: 
   - mouseX
@@ -29,7 +29,7 @@
 Changed:
   - drawing functions are now in draw.js
   - change example function colors
-
+ 
 ## 1.0.2
 - Added:
   - onMouseUp()
@@ -40,7 +40,7 @@ Changed:
   - tick
 - Changed:
   - tps is now 20
-
+ 
 ## 1.0.3
 - Changed:
   - tps is now 40
