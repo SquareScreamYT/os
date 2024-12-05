@@ -12,13 +12,15 @@
       height: 100vh;
       margin: 0;
       background-color: #f8f9fa;
-      padding: 20px;
+      padding: 0;
       box-sizing: border-box;
+      overflow: hidden; 
     }
     #pixelCanvas {
-      border: 2px solid #adb5bd;
-      width: calc(100vmin - 40px);
-      height: calc(57vmin - 40px);
+      /* border: 2px solid #adb5bd; */
+      width: 90vw; 
+      height: 90vh;
+      object-fit: contain; 
       image-rendering: pixelated;
       cursor: none;
     }
