@@ -61,22 +61,24 @@ function draw() {
   drawRect(64, 132, 191, 142, "#868e96", true);
   drawRect(65, 131, 190, 143, "#868e96", true);
 
+  if (currentApp == "calculator") {
+    calculatorApp();
+  }
+
   // calculator icon
   if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
 
-
-
-  for (let line of drawnLines) {
-    drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
-  }
+  //for (let line of drawnLines) {
+  //  drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
+  //}
 
   if (isMouseWithin(66, 134, 66+6, 134+8)) {
     currentCursor = "pointer";
   } else {
     currentCursor = "cursor";
   }
-  if (cursorSprite && currentCursor == "cursor") { drawSprite(mouseX-1, mouseY, cursorSprite); }
-  if (pointerSprite && currentCursor == "pointer") { drawSprite(mouseX-1, mouseY, pointerSprite); }
+  if (cursorSprite && currentCursor == "cursor") { drawSprite(mouseX-2, mouseY, cursorSprite); }
+  if (pointerSprite && currentCursor == "pointer") { drawSprite(mouseX-2, mouseY, pointerSprite); }
 
   if (mouseDown) {
     onMouseDown();
@@ -88,7 +90,6 @@ function draw() {
 
   onInitialMouseDown();
 }
-
 
 function onMouseDown() {
   drawLine(mouseXoldold, mouseYoldold, mouseX, mouseY, "#ff6b6b");
@@ -115,7 +116,13 @@ function onMouseUpRight() {
 }
 
 function onMouseClick() {
-  
+  if (isMouseWithin(66, 134, 66+6, 134+8)) {
+    currentApp = "calculator";
+  }
+
+  if ( currentApp == "calculator") {
+    onCalculatorMouseClick();
+  }
 }
 
 function onMouseClickRight() {
