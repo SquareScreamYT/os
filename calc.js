@@ -5,9 +5,9 @@ let calculatorState = {
 };
 
 function calculatorApp() {
-  drawRect(64, 20, 191, 120, "#495057", true);
+  drawRect(65, 20, 190, 120, "#495057", true, 4);
   
-  drawRect(70, 25, 185, 40, "#212529", true);
+  drawRect(70, 25, 185, 40, "#212529", true, 2);
   drawText(calculatorState.display, 75, 30, "#f8f9fa", "small");
   
   const buttons = [
@@ -22,7 +22,7 @@ function calculatorApp() {
   buttons.forEach((row, rowIndex) => {
     let x = 70;
     row.forEach((btn, colIndex) => {
-      drawRect(x, y, x + 25, y + 10, "#868e96", true);
+      drawRect(x, y, x + 25, y + 10, "#868e96", true, 2);
       drawText(btn, x + 12, y + 3, "#f8f9fa", "small");
       x += 30;
     });

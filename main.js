@@ -95,16 +95,29 @@ function drawLine(x1, y1, x2, y2, color) {
   }
 }
 
-function drawRect(x1, y1, x2, y2, color, fill) {
-  drawLine(x1, y1, x2, y1, color);
-  drawLine(x2, y1, x2, y2, color);
-  drawLine(x2, y2, x1, y2, color);
-  drawLine(x1, y2, x1, y1, color);
+function drawRect(x1, y1, x2, y2, color, fill, radius = 0) {
+  if (radius === 0) {
+    drawPolygon([
+      [x1, y1],
+      [x2, y1],
+      [x2, y2],
+      [x1, y2]
+    ], color, fill);
+  } else {
+    const points = [];
 
-  if (fill) {
-    for (let y = y1 + 1; y < y2; y++) {
-      drawLine(x1, y, x2, y, color);
-    }
+    points.push([x1 + radius, y1]);
+    points.push([x2 - radius, y1]);
+    points.push([x2, y1 + radius]);
+    points.push([x2, y2 - radius]);
+    points.push([x2 - radius, y2]);
+    points.push([x1 + radius, y2]);
+    points.push([x1, y2 - radius]);
+    points.push([x1, y1 + radius]);
+
+    points.push([x1 + radius, y1]);
+
+    drawPolygon(points, color, fill);
   }
 }
 
