@@ -59,70 +59,127 @@ opencolor = {
   ]
 }
 
-// resurrect 64 by kerrie lake
-const color = {
-  black: "#2e222f",
-  dgray: "#3e3546",
-  gray: "#625565",
-  dred: "#966c6c",
-  lbrown: "#ab947a",
-  plum: "#694f62",
-  slate: "#7f708a",
-  greengray: "#9babb2",
-  mint: "#c7dcd0",
+// endesga 64 by endesga
+const colors = {
+  red: "#ff0040",
+  black: "#131313",
+  charcoal: "#1b1b1b",
+  gray: "#272727",
+  slate: "#3d3d3d",
+  stone: "#5d5d5d",
+  silver: "#858585",
+  lightgray: "#b4b4b4",
   white: "#ffffff",
-  scarlet: "#6e2727",
-  crimson: "#b33831",
-  coral: "#ea4f36",
-  salmon: "#f57d4a",
-  ruby: "#ae2334",
-  red: "#e83b3b",
-  orange: "#fb6b1d",
-  amber: "#f79617",
-  yellow: "#f9c22b",
-  wine: "#7a3045",
-  copper: "#9e4539",
-  sienna: "#cd683d",
-  gold: "#e6904e",
-  khaki: "#fbb954",
-  olive: "#4c3e24",
-  moss: "#676633",
-  olivegreen: "#a2a947",
-  chartreuse: "#d5e04b",
-  sunrise: "#fbff86",
-  dteal: "#165a4c",
-  forest: "#239063",
-  seafoam: "#1ebc73",
-  lime: "#91db69",
-  dustgreen: "#cddf6c",
-  charcoalgray: "#313638",
-  mediumgray: "#374e4a",
-  dustyteal: "#547e64",
-  sage: "#92a984",
-  olivegray: "#b2ba90",
-  oceanblue: "#0b5e65",
-  dcyan: "#0b8a8f",
-  turquoise: "#0eaf9b",
-  cyan: "#30e1b9",
-  lcyan: "#8ff8e2",
-  dblue: "#323353",
-  indigo: "#484a77",
-  royalblue: "#4d65b4",
-  blue: "#4d9be6",
-  babyblue: "#8fd3ff",
-  dplum: "#45293f",
-  dpurple: "#6b3e75",
-  purple: "#905ea9",
-  lpurple: "#a884f3",
-  lpink: "#eaaded",
-  drose: "#753c54",
-  magenta: "#a24b6f",
-  lrose: "#cf657f",
-  rose: "#ed8099",
-  dmagenta: "#831c5d",
-  dpink: "#c32454",
-  lred: "#f04f78",
-  blush: "#f68181",
-  peach: "#fca790",
-  beige: "#fdcbb0"
+  lightblue: "#c7cfdd",
+  steelblue: "#92a1b9",
+  bluegray: "#657392",
+  indigo: "#424c6e",
+  midnightblue: "#2a2f4e",
+  blueblack: "#1a1932",
+  purpleblack: "#0e071b",
+  plumblack: "#1c121c",
+  maroon: "#391f21",
+  brown: "#5d2c28",
+  sienna: "#8a4836",
+  chocolate: "#bf6f4a",
+  sand: "#e69c69",
+  tan: "#f6ca9f",
+  beige: "#f9e6cf",
+  darkyellow: "#edab50",
+  darkorange: "#e07438",
+  red: "#c64524",
+  brick: "#8e251d",
+  orange: "#ff5000",
+  salmon: "#ed7614",
+  gold: "#ffa214",
+  yellow: "#ffc825",
+  lemon: "#ffeb57",
+  chartreuse: "#d3fc7e",
+  lime: "#99e65f",
+  forest: "#5ac54f",
+  seafoam: "#33984b",
+  teal: "#1e6f50",
+  darkteal: "#134c4c",
+  darkindigo: "#0c2e44",
+  darkblue: "#00396d",
+  blue: "#0069aa",
+  skyblue: "#0098dc",
+  cyan: "#00cdf9",
+  electricblue: "#0cf1ff",
+  lightcyan: "#94fdff",
+  lightpink: "#fdd2ed",
+  pink: "#f389f5",
+  magenta: "#db3ffd",
+  electricpurple: "#7a09fa",
+  violet: "#3003d9",
+  darkviolet: "#0c0293",
+  darkcyan: "#03193f",
+  darkmagenta: "#3b1443",
+  darkorchid: "#622461",
+  orchid: "#93388f",
+  lightorchid: "#ca52c9",
+  blush: "#c85086",
+  rose: "#f68187",
+  lightred: "#f5555d",
+  mediumred: "#ea323c",
+  darkred: "#c42430",
+  scarlet: "#891e2b",
+  wine: "#571c27"
 };
+
+for (const key in colors) {
+  window[key] = colors[key];
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  let r = parseInt(hex.substring(0, 2), 16);
+  let g = parseInt(hex.substring(2, 4), 16);
+  let b = parseInt(hex.substring(4, 6), 16);
+  return { r, g, b };
+}
+
+function colorDistance(rgb1, rgb2) {
+  const rDiff = rgb1.r - rgb2.r;
+  const gDiff = rgb1.g - rgb2.g;
+  const bDiff = rgb1.b - rgb2.b;
+  return Math.sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
+}
+
+function res64(hexColor) {
+  const rgbColor = hexToRgb(hexColor); 
+
+  let nearestColorHex = null;
+  let minDistance = Infinity;
+
+  for (const res64ColorName in color) {
+    const res64ColorValue = color[res64ColorName];
+    const res64Rgb = hexToRgb(res64ColorValue);
+    const distance = colorDistance(rgbColor, res64Rgb);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      nearestColorHex = res64ColorValue; 
+    }
+  }
+
+  return nearestColorHex;
+}
+
+function hexArrayToRes64(hexArray) {
+  const result = [];
+
+  for (let i = 0; i < hexArray.length; i++) {
+    const hexColor = hexArray[i];
+
+    if (hexColor = "none") {
+      result.push("none");
+      continue;
+    }
+
+    const nearestColor = res64(hexColor);
+
+    result.push(nearestColor);
+  }
+  return result;
+}
