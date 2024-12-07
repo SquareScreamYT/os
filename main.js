@@ -360,9 +360,6 @@ function drawText(text, x, y, color, font = 'pixel_sans') {
   
   for (let i = 0; i < text.length; i++) {
     let char = text[i];
-    if (font === 'small') {
-      char = char.toUpperCase();
-    }
     
     const fontArray = font === 'small' ? smallfont : pixel_sansArray;
     if (!fontArray || !fontArray[char]) continue;
@@ -370,7 +367,7 @@ function drawText(text, x, y, color, font = 'pixel_sans') {
     const charArray = fontArray[char];
     
     if (font === 'small') {
-      for (let row = 0; row < 5; row++) {
+      for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 3; col++) {
           if (charArray[row][col] === '.') {
             setPixel(currentX + col, y + row, color);

@@ -5,10 +5,12 @@ let calculatorState = {
 };
 
 function calculatorApp() {
-  drawRect(65, 20, 190, 120, "#495057", true, 4);
+  drawRect(65, 20, 190, 128, "#495057", true, 4);
+
+  drawText("Calculator", 70, 24, "#f8f9fa", "small");
   
-  drawRect(70, 25, 185, 40, "#212529", true, 2);
-  drawText(calculatorState.display, 75, 30, "#f8f9fa", "small");
+  drawRect(70, 33, 185, 48, "#212529", true, 2); 
+  drawText(calculatorState.display, 75, 38, "#f8f9fa", "small"); 
   
   const buttons = [
     ["C", "^", "(", ")"],
@@ -18,7 +20,7 @@ function calculatorApp() {
     ["0", ".", "=", "+"]
   ];
   
-  let y = 45;
+  let y = 53;
   buttons.forEach((row, rowIndex) => {
     let x = 70;
     row.forEach((btn, colIndex) => {
@@ -30,14 +32,12 @@ function calculatorApp() {
   });
 }
 
-
 function calculateResult(equation) {
   try {
-    // Replace ^ with ** for exponentiation
     const processedEquation = equation.replace(/\^/g, '**');
     return eval(processedEquation).toString();
   } catch (error) {
-    return "Error";
+    return "ERROR";
   }
 }
 
@@ -73,7 +73,7 @@ function onCalculatorMouseClick() {
       ["0", ".", "=", "+"]
     ];
     
-    let y = 45;
+    let y = 53;
     buttons.forEach((row, rowIndex) => {
       let x = 70;
       row.forEach((btn) => {

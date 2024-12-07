@@ -58,8 +58,7 @@ function draw() {
   drawText(displayTime, 223, 2, "#f8f9fa", "small");
   drawText(displayDate, 175, 2, "#f8f9fa", "small");
   // taskbar
-  drawRect(64, 132, 191, 142, "#868e96", true);
-  drawRect(65, 131, 190, 143, "#868e96", true);
+  drawRect(64, 132, 191, 143, "#868e96", true, 2);
 
   if (currentApp == "calculator") {
     calculatorApp();
