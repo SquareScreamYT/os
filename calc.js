@@ -8,6 +8,9 @@ function calculatorApp() {
   drawRect(65, 20, 190, 128, "#495057", true, 4);
 
   drawText("Calculator", 70, 24, "#f8f9fa", "small");
+  drawRect(181, 23, 187, 29, "#ff6b6b", true, 2);
+  drawLine(183, 25, 185, 27, "#f03e3e");
+  drawLine(185, 25, 183, 27, "#f03e3e");
   
   drawRect(70, 33, 185, 48, "#212529", true, 2); 
   drawText(calculatorState.display, 75, 38, "#f8f9fa", "small"); 
@@ -84,5 +87,9 @@ function onCalculatorMouseClick() {
       });
       y += 15;
     });
+
+    if (isMouseWithin(181, 23, 187, 29)) {
+      currentApp = "desktop";
+    }
   }
 }
