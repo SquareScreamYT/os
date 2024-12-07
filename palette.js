@@ -131,6 +131,12 @@ for (const key in colors) {
   window[key] = colors[key];
 }
 
+for (const key in opencolor) {
+  for (let num = 0; num < 10; num++) {
+    window[key + num] = opencolor[key][num];
+  }
+}
+
 function hexToRgb(hex) {
   hex = hex.replace('#', '');
   let r = parseInt(hex.substring(0, 2), 16);
