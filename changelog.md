@@ -1,5 +1,5 @@
 # sqRender Changelog
- 
+
 ## 1.0.0
 - 256 x 144 canvas
 - Added:
