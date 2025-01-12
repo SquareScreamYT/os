@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, moveSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
+let cursorSprite, pointerSprite, moveSprite, logoSprite, horizontalSprite, verticalSprite, diagonalSprite, diagonal2Sprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
@@ -10,6 +10,18 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/image
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/logo.png").then(hexArray => {
   logoSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/horizontal.png").then(hexArray => {
+  horizontalSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/vertical.png").then(hexArray => {
+  verticalSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/diagonal.png").then(hexArray => {
+  diagonalSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/diagonal2.png").then(hexArray => {
+  diagonal2Sprite = blackToTransparent(hexArray)
 });
 // image from jayd from discord
 // https://github.com/Jayd-Rubies
@@ -92,6 +104,12 @@ function draw() {
   } else {
     currentCursor = "cursor";
   }
+  
+  // calculator icon
+  if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
+
+  // seal icon!! https://discord.com/channels/697450809390268467/697450809847316540/1327822894771863592
+  if (sealSprite) { drawSprite(180, 134, sealSprite); }
 
   if (currentApp == "calculator") {
     calculatorApp();
@@ -101,12 +119,6 @@ function draw() {
     calculatorState.originx = mouseX - calculatorState.dragOffsetX;
     calculatorState.originy = mouseY - calculatorState.dragOffsetY;
   }
-  
-  // calculator icon
-  if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
-
-  // seal icon!! https://discord.com/channels/697450809390268467/697450809847316540/1327822894771863592
-  if (sealSprite) { drawSprite(180, 134, sealSprite); }
 
   //for (let line of drawnLines) {
   //  drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
@@ -114,6 +126,10 @@ function draw() {
   if (cursorSprite && currentCursor == "cursor") { drawSprite(mouseX-2, mouseY, cursorSprite); }
   if (pointerSprite && currentCursor == "pointer") { drawSprite(mouseX-2, mouseY, pointerSprite); }
   if (moveSprite && currentCursor == "move") { drawSprite(mouseX-2, mouseY, moveSprite); }
+  if (horizontalSprite && currentCursor == "horizontal") { drawSprite(mouseX-2, mouseY, horizontalSprite); }
+  if (verticalSprite && currentCursor == "vertical") { drawSprite(mouseX-2, mouseY, verticalSprite); }
+  if (diagonalSprite && currentCursor == "diagonal") { drawSprite(mouseX-2, mouseY, diagonalSprite); }
+  if (diagonal2Sprite && currentCursor == "diagonal2") { drawSprite(mouseX-2, mouseY, diagonal2Sprite); }
 
   if (mouseDown) {
     onMouseDown();
