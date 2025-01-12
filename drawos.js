@@ -137,9 +137,9 @@ function onMouseClick() {
     currentApp = "calculator";
   }
   
-  if (isMouseWithin(100, 180, 100+6, 180+8)) {
+  if (isMouseWithin(180, 134, 180+6, 134+8)) {
     currentSeal +=1
-  }
+  }  
 
   if (currentApp == "calculator") {
     onCalculatorMouseClick();
