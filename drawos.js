@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite;
+let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
@@ -22,6 +22,9 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/image
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/freepik-seal-beach-dune-island-near-helgoland_475641-180.png").then(hexArray => {
   sealBgSprite = resizeHexArray(hexArray, 255, 144);
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/freepik-ai-generated-realistic-pictures-seals.jpg").then(hexArray => {
+  sealBgSprite2 = resizeHexArray(hexArray, 255, 144);
 });
 
 let drawnLines = [];
@@ -132,15 +135,21 @@ function onMouseClick() {
     currentApp = "calculator";
   }
   
-  // Add seal icon click handler
   if (isMouseWithin(100, 134, 100+6, 134+8)) {
-    backgroundSprite = sealBgSprite;
+    if (backgroundSprite === sealBgSprite) {
+      backgroundSprite = sealBgSprite2;
+    } else if (backgroundSprite === sealBgSprite2) {
+      backgroundSprite = null;
+    } else {
+      backgroundSprite = sealBgSprite;
+    }
   }
 
   if (currentApp == "calculator") {
     onCalculatorMouseClick();
   }
 }
+
 
 function onMouseClickRight() {
   
