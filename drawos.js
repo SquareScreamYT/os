@@ -21,7 +21,7 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/image
   sealSprite = blackToTransparent(hexArray);
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/freepik-seal-beach-dune-island-near-helgoland_475641-180.png").then(hexArray => {
-  sealBgSprite = resizeHexArray(hexArray, 256, 144);
+  sealBgSprite = resizeHexArray(hexArray, 255, 144);
 });
 
 let drawnLines = [];
@@ -34,8 +34,12 @@ currentCursor = "cursor";
 function draw() {
   clearCanvas();
 
-  // dark background
-  drawRect(0, 0, 255, 144, "#343a40", true);
+  // dark background / seal background
+  if (backgroundSprite === sealBgSprite) {
+    drawSprite(0, 0, backgroundSprite);
+  } else {
+    drawRect(0, 0, 255, 144, "#343a40", true);
+  }
 
   // blue background
   // if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
@@ -66,7 +70,7 @@ function draw() {
   // taskbar
   drawRect(64, 132, 191, 143, "#868e96", true, 2);
 
-  if (isMouseWithin(66, 134, 66+6, 134+8)) {
+  if (isMouseWithin(66, 134, 66+6, 134+8) || isMouseWithin(100, 134, 100+6, 134+8)) {
     currentCursor = "pointer";
   } else {
     currentCursor = "cursor";
@@ -127,8 +131,13 @@ function onMouseClick() {
   if (isMouseWithin(66, 134, 66+6, 134+8)) {
     currentApp = "calculator";
   }
+  
+  // Add seal icon click handler
+  if (isMouseWithin(100, 134, 100+6, 134+8)) {
+    backgroundSprite = sealBgSprite;
+  }
 
-  if ( currentApp == "calculator") {
+  if (currentApp == "calculator") {
     onCalculatorMouseClick();
   }
 }
