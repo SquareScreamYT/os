@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite;
+let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
