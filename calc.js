@@ -18,28 +18,40 @@ function handleCalculatorDrag(mouseX, mouseY) {
   }
 }
 
+const calcColors = {
+  body: hexColor("#495057"),
+  title: hexColor("#f8f9fa"),
+  minimizeRect: hexColor("#fcc419"),
+  minimizeLine: hexColor("#f59f00"),
+  closeRect: hexColor("#ff6b6b"),
+  closeLine: hexColor("#f03e3e"),
+  display: hexColor("#212529"),
+  text: hexColor("#f8f9fa"),
+  buttonBack: hexColor("#868e96")
+};
+
 function calculatorApp() {
   const x = calculatorState.originx;
   const y = calculatorState.originy;
   
   // Main calculator body
-  drawRect(x, y, x + calculatorState.width, y + calculatorState.height, "#495057", true, 4);
+  drawRect(x, y, x + calculatorState.width, y + calculatorState.height, calcColors.body, true, 4);
 
   // Title
-  drawText("Calculator", x + 5, y + 4, "#f8f9fa", "small");
+  drawText("Calculator", x + 5, y + 4, calcColors.title, "small");
   
   // Minimize button
-  drawRect(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9, "#fcc419", true, 2);
-  drawLine(x + calculatorState.width - 16, y + 6, x + calculatorState.width - 14, y + 6, "#f59f00");
+  drawRect(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9, calcColors.minimizeRect, true, 2);
+  drawLine(x + calculatorState.width - 16, y + 6, x + calculatorState.width - 14, y + 6, calcColors.minimizeLine);
   
   // Close button
-  drawRect(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9, "#ff6b6b", true, 2);
-  drawLine(x + calculatorState.width - 7, y + 5, x + calculatorState.width - 5, y + 7, "#f03e3e");
-  drawLine(x + calculatorState.width - 5, y + 5, x + calculatorState.width - 7, y + 7, "#f03e3e");
+  drawRect(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9, calcColors.closeRect, true, 2);
+  drawLine(x + calculatorState.width - 7, y + 5, x + calculatorState.width - 5, y + 7, calcColors.closeLine);
+  drawLine(x + calculatorState.width - 5, y + 5, x + calculatorState.width - 7, y + 7, calcColors.closeLine);
   
   // Display
-  drawRect(x + 5, y + 13, x + calculatorState.width - 5, y + 28, "#212529", true, 2); 
-  drawText(calculatorState.display, x + 10, y + 18, "#f8f9fa", "small");
+  drawRect(x + 5, y + 13, x + calculatorState.width - 5, y + 28, calcColors.display, true, 2); 
+  drawText(calculatorState.display, x + 10, y + 18, calcColors.text, "small");
   
   const buttons = [
     ["C", "^", "(", ")"],
@@ -55,8 +67,8 @@ function calculatorApp() {
   buttons.forEach((row) => {
     let buttonX = x + 5;
     row.forEach((btn) => {
-      drawRect(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10, "#868e96", true, 2);
-      drawText(btn, buttonX + Math.floor(buttonWidth/2), buttonY + 3, "#f8f9fa", "small");
+      drawRect(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10, calcColors.buttonBack, true, 2);
+      drawText(btn, buttonX + Math.floor(buttonWidth/2), buttonY + 3, calcColors.text, "small");
       buttonX += buttonWidth + 5; // Add small gap between buttons
     });
     buttonY += 15;
