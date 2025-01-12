@@ -33,15 +33,17 @@ let displayTime = '';
 let displayDate = '';
 currentApp = "desktop";
 currentCursor = "cursor";
+currentSeal = 0;
 
 function draw() {
   clearCanvas();
 
   // dark background / seal background
-  if (backgroundSprite && sealBgSprite && backgroundSprite === sealBgSprite) {
-    drawSprite(0, 0, backgroundSprite);
-  } else {
-    drawRect(0, 0, 255, 144, "#343a40", true);
+  if (currentSeal % 3 == 0) { drawRect(0, 0, 255, 144, "#343a40", true); }
+  if (backgroundSprite && sealBgSprite && sealBgSprite2) {
+    if (currentSeal % 3 == 1) { drawSprite(0, 0, sealBgSprite); }
+    if (currentSeal % 3 == 2) { drawSprite(0, 0, sealBgSprite2); }
+    if (currentSeal % 3 == 0) { drawRect(0, 0, 255, 144, "#343a40", true); }
   }
 
   // blue background
@@ -136,13 +138,7 @@ function onMouseClick() {
   }
   
   if (isMouseWithin(100, 134, 100+6, 134+8)) {
-    if (backgroundSprite === sealBgSprite) {
-      backgroundSprite = sealBgSprite2;
-    } else if (backgroundSprite === sealBgSprite2) {
-      backgroundSprite = null;
-    } else {
-      backgroundSprite = sealBgSprite;
-    }
+    currentSeal +=1
   }
 
   if (currentApp == "calculator") {
