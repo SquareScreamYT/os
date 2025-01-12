@@ -23,7 +23,7 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/image
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/freepik-seal-beach-dune-island-near-helgoland_475641-180.png").then(hexArray => {
   sealBgSprite = resizeHexArray(hexArray, 255, 144);
 });
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/freepik-ai-generated-realistic-pictures-seals.png").then(hexArray => {
+getImageHexArray("images/1gbp3zm4o7_Harbor_Seal_on_Ice_close_0357_6_11_07.jpg").then(hexArray => {
   sealBgSprite2 = resizeHexArray(hexArray, 255, 144);
 });
 
