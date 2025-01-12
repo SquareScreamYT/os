@@ -82,7 +82,25 @@ function calculatorApp() {
   } else if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
     currentCursor = "move";
   } else {
-    currentCursor = "cursor";
+    // Check if mouse is over any calculator button
+    let isOverButton = false;
+    let buttonY = y + 33;
+    const buttonWidth = Math.round((calculatorState.width - 25) / 4);
+    
+    for (let row = 0; row < 5; row++) {
+      let buttonX = x + 5;
+      for (let col = 0; col < 4; col++) {
+        if (isMouseWithin(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10)) {
+          isOverButton = true;
+          break;
+        }
+        buttonX += buttonWidth + 5;
+      }
+      buttonY += 15;
+      if (isOverButton) break;
+    }
+    
+    currentCursor = isOverButton ? "pointer" : "cursor";
   }
 }
 
