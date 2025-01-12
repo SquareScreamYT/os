@@ -8,6 +8,10 @@ function calculatorApp() {
   drawRect(65, 20, 190, 128, "#495057", true, 4);
 
   drawText("Calculator", 70, 24, "#f8f9fa", "small");
+  
+  drawRect(172, 23, 178, 29, "#fcc419", true, 2);
+  drawLine(174, 26, 176, 26, "#f59f00");
+  
   drawRect(181, 23, 187, 29, "#ff6b6b", true, 2);
   drawLine(183, 25, 185, 27, "#f03e3e");
   drawLine(185, 25, 183, 27, "#f03e3e");
@@ -33,6 +37,14 @@ function calculatorApp() {
     });
     y += 15;
   });
+
+  if (isMouseWithin(172, 23, 178, 29)) {
+    currentCursor = "pointer";
+  }
+  
+  if (isMouseWithin(181, 23, 187, 29)) {
+    currentCursor = "pointer";
+  }
 }
 
 function calculateResult(equation) {
@@ -65,6 +77,16 @@ function handleCalculatorInput(button) {
 function onCalculatorMouseClick() {
   if (isMouseWithin(66, 134, 66+6, 134+8)) {
     currentApp = "calculator";
+  }
+  
+  if (currentApp === "calculator") {
+    if (isMouseWithin(172, 23, 178, 29)) {
+      currentApp = "desktop";
+    }
+    
+    if (isMouseWithin(181, 23, 187, 29)) {
+      currentApp = "desktop";
+    }
   }
   
   if (currentApp === "calculator") {
