@@ -206,31 +206,12 @@ function onKeyUp(key) {
   // Add your key up handling logic here
 }
 
-const FPS = 60;
-const frameDelay = 1000 / FPS;
-let lastFrameTime = 0;
-let tpsCounter = 0;
-let lastTpsUpdate = Date.now();
-let currentTps = 0;
-
 function gameLoop(timestamp) {
-  if (timestamp - lastFrameTime > frameDelay) {
-    draw();
-    drawPixelmap();
-    tick++;
-    tpsCounter++;
-    
-    if (Date.now() - lastTpsUpdate >= 1000) {
-      currentTps = tpsCounter;
-      console.log(`Current TPS: ${currentTps}`);
-      tpsCounter = 0;
-      lastTpsUpdate = Date.now();
-    }
-    
-    lastFrameTime = timestamp;
-    mouseXoldold = mouseXold;
-    mouseYoldold = mouseYold;
-  }
+  draw();
+  drawPixelmap();
+  tick++; 
+  mouseXoldold = mouseXold;
+  mouseYoldold = mouseYold;
   requestAnimationFrame(gameLoop);
 }
 
