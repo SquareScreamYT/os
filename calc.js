@@ -41,16 +41,17 @@ function calculatorApp() {
   
   // Draw buttons
   let buttonY = y + 33;
+  const buttonWidth = (calculatorState.width - 25) / 4; // Divide available space by 4 buttons
   buttons.forEach((row) => {
     let buttonX = x + 5;
     row.forEach((btn) => {
-      drawRect(buttonX, buttonY, buttonX + 25, buttonY + 10, "#868e96", true, 2);
-      drawText(btn, buttonX + 12, buttonY + 3, "#f8f9fa", "small");
-      buttonX += 30;
+      drawRect(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10, "#868e96", true, 2);
+      drawText(btn, buttonX + Math.floor(buttonWidth/2), buttonY + 3, "#f8f9fa", "small");
+      buttonX += buttonWidth + 5; // Add small gap between buttons
     });
     buttonY += 15;
   });
-
+  
   // Update cursor
   if (isMouseWithin(x + 107, y + 3, x + 113, y + 9)) {
     currentCursor = "pointer";
@@ -119,13 +120,14 @@ function onCalculatorMouseClick() {
     ];
     
     let buttonY = y + 33;
+    const buttonWidth = (calculatorState.width - 25) / 4;
     buttons.forEach((row) => {
       let buttonX = x + 5;
       row.forEach((btn) => {
-        if (isMouseWithin(buttonX, buttonY, buttonX + 25, buttonY + 10)) {
+        if (isMouseWithin(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10)) {
           handleCalculatorInput(btn);
         }
-        buttonX += 30;
+        buttonX += buttonWidth + 5;
       });
       buttonY += 15;
     });
