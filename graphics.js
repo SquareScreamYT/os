@@ -19,10 +19,13 @@ function hexColor(hex) {
   return color;
 }
 
-const pixelmap = [];
-for (let y = 0; y < 144; y++) {
+const WIDTH = 256;
+const HEIGHT = 144;
+
+const pixelmap = Array(WIDTH*HEIGHT).fill(hexColor("#f8f9fa"));
+for (let y = 0; y < HEIGHT; y++) {
   pixelmap[y] = [];
-  for (let x = 0; x < 256; x++) {
+  for (let x = 0; x < WIDTH; x++) {
     pixelmap[y][x] = hexColor("#f8f9fa");
   }
 }
@@ -31,25 +34,24 @@ const canvas = document.getElementById("pixelCanvas");
 const ctx = canvas.getContext("2d", {alpha: false, willReadFrequently: true});
 ctx.imageSmoothingEnabled = false;
 
-updatedPixels = [];
-
 function drawPixelmap() {
   const imageData = ctx.getImageData(0, 0, 256, 144);
   const data = imageData.data;
   const buffer = new Uint32Array(data.buffer);
   
-  for (const pixel of updatedPixels) {
-    buffer[pixel.y * 256 + pixel.x] = pixelmap[pixel.y][pixel.x];
+  let index = 0;
+  for(let y = 0; y < HEIGHT; y++) {
+    for(let x = 0; x < WIDTH; x ++) {
+      buffer[index++] = pixelmap[y][x];
+    }
   }
   
   ctx.putImageData(imageData, 0, 0);
-  updatedPixels = []; // Clear the array after drawing
 }
 
 function setPixel(x, y, color) {
   if (x < 0 || x >= 256 || y < 0 || y >= 144) return;
   pixelmap[y][x] = color;
-  updatedPixels.push({ x, y });
 }
 
 function getPixel(x, y) {
@@ -60,10 +62,10 @@ function getPixel(x, y) {
 }
 
 function clearCanvas() {
-  for (let y = 0; y < pixelmap.length; y++) {
-    for (let x = 0; x < pixelmap[y].length; x++) {
-      pixelmap[y][x] = hexColor("#f8f9fa");
-      updatedPixels.push({ x, y });
+  const color = hexColor("#f8f9fa");
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      pixelmap[y][x] = color;
     }
   }
 }
