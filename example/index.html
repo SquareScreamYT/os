@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sqRender - Main</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8f9fa;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    #pixelCanvas {
+      border: 2px solid #adb5bd;
+      width: calc(100vmin - 40px);
+      height: calc(57vmin - 40px);
+      image-rendering: pixelated;
+    }
+    #fontCanvas {
+      position: absolute;
+      visibility: hidden;
+      width: 1px;
+      height: 1px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pixelCanvas" width="256" height="144"></canvas>
+  <canvas id="fontCanvas"></canvas>
+  <script src="font.js"></script>
+  <script src="smallfont.js"></script>
+  <script src="main.js"></script>
+  <script src="draw.js"></script>
+</body>
+</html>
