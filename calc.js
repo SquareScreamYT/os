@@ -1,23 +1,35 @@
 let calculatorState = {
   equation: "0",
   result: "0",
-  display: "0" 
+  display: "0",
+  width: 125,
+  height: 108,
+  originx: 65,
+  originy: 20
 };
 
 function calculatorApp() {
-  drawRect(65, 20, 190, 128, "#495057", true, 4);
+  const x = calculatorState.originx;
+  const y = calculatorState.originy;
+  
+  // Main calculator body
+  drawRect(x, y, x + calculatorState.width, y + calculatorState.height, "#495057", true, 4);
 
-  drawText("Calculator", 70, 24, "#f8f9fa", "small");
+  // Title
+  drawText("Calculator", x + 5, y + 4, "#f8f9fa", "small");
   
-  drawRect(172, 23, 178, 29, "#fcc419", true, 2);
-  drawLine(174, 26, 176, 26, "#f59f00");
+  // Minimize button
+  drawRect(x + 107, y + 3, x + 113, y + 9, "#fcc419", true, 2);
+  drawLine(x + 109, y + 6, x + 111, y + 6, "#f59f00");
   
-  drawRect(181, 23, 187, 29, "#ff6b6b", true, 2);
-  drawLine(183, 25, 185, 27, "#f03e3e");
-  drawLine(185, 25, 183, 27, "#f03e3e");
+  // Close button
+  drawRect(x + 116, y + 3, x + 122, y + 9, "#ff6b6b", true, 2);
+  drawLine(x + 118, y + 5, x + 120, y + 7, "#f03e3e");
+  drawLine(x + 120, y + 5, x + 118, y + 7, "#f03e3e");
   
-  drawRect(70, 33, 185, 48, "#212529", true, 2); 
-  drawText(calculatorState.display, 75, 38, "#f8f9fa", "small"); 
+  // Display
+  drawRect(x + 5, y + 13, x + 120, y + 28, "#212529", true, 2); 
+  drawText(calculatorState.display, x + 10, y + 18, "#f8f9fa", "small"); 
   
   const buttons = [
     ["C", "^", "(", ")"],
@@ -27,20 +39,22 @@ function calculatorApp() {
     ["0", ".", "=", "+"]
   ];
   
-  let y = 53;
-  buttons.forEach((row, rowIndex) => {
-    let x = 70;
-    row.forEach((btn, colIndex) => {
-      drawRect(x, y, x + 25, y + 10, "#868e96", true, 2);
-      drawText(btn, x + 12, y + 3, "#f8f9fa", "small");
-      x += 30;
+  // Draw buttons
+  let buttonY = y + 33;
+  buttons.forEach((row) => {
+    let buttonX = x + 5;
+    row.forEach((btn) => {
+      drawRect(buttonX, buttonY, buttonX + 25, buttonY + 10, "#868e96", true, 2);
+      drawText(btn, buttonX + 12, buttonY + 3, "#f8f9fa", "small");
+      buttonX += 30;
     });
-    y += 15;
+    buttonY += 15;
   });
 
-  if (isMouseWithin(172, 23, 178, 29)) {
+  // Update cursor
+  if (isMouseWithin(x + 107, y + 3, x + 113, y + 9)) {
     currentCursor = "pointer";
-  } else if (isMouseWithin(181, 23, 187, 29)) {
+  } else if (isMouseWithin(x + 116, y + 3, x + 122, y + 9)) {
     currentCursor = "pointer";
   } else {
     currentCursor = "cursor";
@@ -75,26 +89,27 @@ function handleCalculatorInput(button) {
 }
 
 function onCalculatorMouseClick() {
-  if (isMouseWithin(66, 134, 66+6, 134+8)) {
-    currentApp = "calculator";
-  }
-  
+  const x = calculatorState.originx;
+  const y = calculatorState.originy;
+
   if (currentApp === "calculator") {
-    if (isMouseWithin(172, 23, 178, 29)) {
+    if (isMouseWithin(x + 107, y + 3, x + 113, y + 9)) {
       currentApp = "desktop";
     }
     
-    if (isMouseWithin(181, 23, 187, 29)) {
+    if (isMouseWithin(x + 116, y + 3, x + 122, y + 9)) {
       currentApp = "desktop";
       calculatorState = {
         equation: "0",
         result: "0",
-        display: "0"
+        display: "0",
+        width: 125,
+        height: 108,
+        originx: 65,
+        originy: 20
       };
     }
-  }
-  
-  if (currentApp === "calculator") {
+    
     const buttons = [
       ["C", "^", "(", ")"],
       ["7", "8", "9", "/"],
@@ -103,20 +118,16 @@ function onCalculatorMouseClick() {
       ["0", ".", "=", "+"]
     ];
     
-    let y = 53;
-    buttons.forEach((row, rowIndex) => {
-      let x = 70;
+    let buttonY = y + 33;
+    buttons.forEach((row) => {
+      let buttonX = x + 5;
       row.forEach((btn) => {
-        if (isMouseWithin(x, y, x + 25, y + 10)) {
+        if (isMouseWithin(buttonX, buttonY, buttonX + 25, buttonY + 10)) {
           handleCalculatorInput(btn);
         }
-        x += 30;
+        buttonX += 30;
       });
-      y += 15;
+      buttonY += 15;
     });
-
-    if (isMouseWithin(181, 23, 187, 29)) {
-      currentApp = "desktop";
-    }
   }
 }
