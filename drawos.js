@@ -75,7 +75,7 @@ function draw() {
   // taskbar
   drawRect(64, 132, 191, 143, "#868e96", true, 2);
 
-  if (isMouseWithin(66, 134, 66+6, 134+8) || isMouseWithin(100, 134, 100+6, 134+8)) {
+  if (isMouseWithin(66, 134, 66+6, 134+8) || isMouseWithin(180, 134, 180+6, 134+8)) {
     currentCursor = "pointer";
   } else {
     currentCursor = "cursor";
