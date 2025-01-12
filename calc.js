@@ -19,17 +19,17 @@ function calculatorApp() {
   drawText("Calculator", x + 5, y + 4, "#f8f9fa", "small");
   
   // Minimize button
-  drawRect(x + 107, y + 3, x + 113, y + 9, "#fcc419", true, 2);
-  drawLine(x + 109, y + 6, x + 111, y + 6, "#f59f00");
+  drawRect(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9, "#fcc419", true, 2);
+  drawLine(x + calculatorState.width - 16, y + 6, x + calculatorState.width - 14, y + 6, "#f59f00");
   
   // Close button
-  drawRect(x + 116, y + 3, x + 122, y + 9, "#ff6b6b", true, 2);
-  drawLine(x + 118, y + 5, x + 120, y + 7, "#f03e3e");
-  drawLine(x + 120, y + 5, x + 118, y + 7, "#f03e3e");
+  drawRect(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9, "#ff6b6b", true, 2);
+  drawLine(x + calculatorState.width - 7, y + 5, x + calculatorState.width - 5, y + 7, "#f03e3e");
+  drawLine(x + calculatorState.width - 5, y + 5, x + calculatorState.width - 7, y + 7, "#f03e3e");
   
   // Display
-  drawRect(x + 5, y + 13, x + 120, y + 28, "#212529", true, 2); 
-  drawText(calculatorState.display, x + 10, y + 18, "#f8f9fa", "small"); 
+  drawRect(x + 5, y + 13, x + calculatorState.width - 5, y + 28, "#212529", true, 2); 
+  drawText(calculatorState.display, x + 10, y + 18, "#f8f9fa", "small");
   
   const buttons = [
     ["C", "^", "(", ")"],
@@ -93,11 +93,11 @@ function onCalculatorMouseClick() {
   const y = calculatorState.originy;
 
   if (currentApp === "calculator") {
-    if (isMouseWithin(x + 107, y + 3, x + 113, y + 9)) {
+    if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
       currentApp = "desktop";
     }
     
-    if (isMouseWithin(x + 116, y + 3, x + 122, y + 9)) {
+    if (isMouseWithin(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9)) {
       currentApp = "desktop";
       calculatorState = {
         equation: "0",
