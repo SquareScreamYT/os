@@ -67,6 +67,8 @@ function calculatorApp() {
     currentCursor = "pointer";
   } else if (isMouseWithin(x + 116, y + 3, x + 122, y + 9)) {
     currentCursor = "pointer";
+  } else if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
+    currentCursor = "move";
   } else {
     currentCursor = "cursor";
   }
@@ -111,7 +113,7 @@ function onCalculatorMouseClick() {
       calculatorState.dragOffsetY = mouseY - calculatorState.originy;
       return;
     }
-    
+
     if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
       currentApp = "desktop";
     }
