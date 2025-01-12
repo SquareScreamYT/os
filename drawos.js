@@ -1,21 +1,24 @@
 let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite;
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/cursor.png").then(hexArray => {
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/pointer.png").then(hexArray => {
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/pointer.png").then(hexArray => {
   pointerSprite = blackToTransparent(hexArray)
 });
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/logo.png").then(hexArray => {
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/logo.png").then(hexArray => {
   logoSprite = blackToTransparent(hexArray)
 });
 // image from jayd from discord
 // https://github.com/Jayd-Rubies
 // <@913241621288595469>
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/jayd/blue.png").then(hexArray => {
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/jayd/blue.png").then(hexArray => {
   backgroundSprite = resizeHexArray(hexArray, 256, 144);
 });
-getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/sq-render/main/images/calculator.png").then(hexArray => {
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/calculator.png").then(hexArray => {
   calculatorSprite =blackToTransparent(hexArray);
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/seal.png").then(hexArray => {
+  sealSprite =blackToTransparent(hexArray);
 });
 
 let drawnLines = [];
@@ -72,6 +75,9 @@ function draw() {
 
   // calculator icon
   if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
+
+  // seal icon!! https://discord.com/channels/697450809390268467/697450809847316540/1327822894771863592
+  if (sealSprite) { drawSprite(100, 134, sealSprite); }
 
   //for (let line of drawnLines) {
   //  drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
