@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite;
+let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
@@ -15,10 +15,13 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/image
   backgroundSprite = resizeHexArray(hexArray, 256, 144);
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/calculator.png").then(hexArray => {
-  calculatorSprite =blackToTransparent(hexArray);
+  calculatorSprite = blackToTransparent(hexArray);
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/seal.png").then(hexArray => {
-  sealSprite =blackToTransparent(hexArray);
+  sealSprite = blackToTransparent(hexArray);
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/freepik-seal-beach-dune-island-near-helgoland_475641-180.png").then(hexArray => {
+  sealBgSprite = resizeHexArray(hexArray, 256, 144);
 });
 
 let drawnLines = [];
