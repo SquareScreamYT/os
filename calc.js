@@ -1,5 +1,3 @@
-// skibidi
-
 let calculatorState = {
   equation: "0",
   result: "0",
