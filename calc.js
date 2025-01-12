@@ -41,7 +41,7 @@ function calculatorApp() {
   
   // Draw buttons
   let buttonY = y + 33;
-  const buttonWidth = (calculatorState.width - 25) / 4; // Divide available space by 4 buttons
+  const buttonWidth = Math.round((calculatorState.width - 25) / 4); // Divide available space by 4 buttons
   buttons.forEach((row) => {
     let buttonX = x + 5;
     row.forEach((btn) => {
@@ -120,7 +120,7 @@ function onCalculatorMouseClick() {
     ];
     
     let buttonY = y + 33;
-    const buttonWidth = (calculatorState.width - 25) / 4;
+    const buttonWidth = Math.round((calculatorState.width - 25) / 4);
     buttons.forEach((row) => {
       let buttonX = x + 5;
       row.forEach((btn) => {

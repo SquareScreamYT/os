@@ -1,9 +1,12 @@
-let cursorSprite, pointerSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
+let cursorSprite, pointerSprite, moveSprite, logoSprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/pointer.png").then(hexArray => {
   pointerSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/move.png").then(hexArray => {
+  moveSprite = blackToTransparent(hexArray)
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/logo.png").then(hexArray => {
   logoSprite = blackToTransparent(hexArray)
@@ -96,6 +99,7 @@ function draw() {
   //}
   if (cursorSprite && currentCursor == "cursor") { drawSprite(mouseX-2, mouseY, cursorSprite); }
   if (pointerSprite && currentCursor == "pointer") { drawSprite(mouseX-2, mouseY, pointerSprite); }
+  if (moveSprite && currentCursor == "move") { drawSprite(mouseX-2, mouseY, moveSprite); }
 
   if (mouseDown) {
     onMouseDown();
