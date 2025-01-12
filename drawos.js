@@ -89,7 +89,7 @@ function draw() {
   if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
 
   // seal icon!! https://discord.com/channels/697450809390268467/697450809847316540/1327822894771863592
-  if (sealSprite) { drawSprite(100, 134, sealSprite); }
+  if (sealSprite) { drawSprite(180, 134, sealSprite); }
 
   //for (let line of drawnLines) {
   //  drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
