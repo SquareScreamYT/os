@@ -86,6 +86,11 @@ function onCalculatorMouseClick() {
     
     if (isMouseWithin(181, 23, 187, 29)) {
       currentApp = "desktop";
+      calculatorState = {
+        equation: "0",
+        result: "0",
+        display: "0"
+      };
     }
   }
   
