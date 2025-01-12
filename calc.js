@@ -5,8 +5,18 @@ let calculatorState = {
   width: 125,
   height: 108,
   originx: 65,
-  originy: 20
+  originy: 20,
+  isDragging: false,
+  dragOffsetX: 0,
+  dragOffsetY: 0
 };
+
+function handleCalculatorDrag(mouseX, mouseY) {
+  if (calculatorState.isDragging) {
+    calculatorState.originx = mouseX - calculatorState.dragOffsetX;
+    calculatorState.originy = mouseY - calculatorState.dragOffsetY;
+  }
+}
 
 function calculatorApp() {
   const x = calculatorState.originx;
@@ -94,6 +104,14 @@ function onCalculatorMouseClick() {
   const y = calculatorState.originy;
 
   if (currentApp === "calculator") {
+    // Check if clicking title bar area (excluding buttons)
+    if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
+      calculatorState.isDragging = true;
+      calculatorState.dragOffsetX = mouseX - calculatorState.originx;
+      calculatorState.dragOffsetY = mouseY - calculatorState.originy;
+      return;
+    }
+    
     if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
       currentApp = "desktop";
     }
@@ -131,5 +149,25 @@ function onCalculatorMouseClick() {
       });
       buttonY += 15;
     });
+  }
+}
+
+// Add this new function to handle dragging
+function handleCalculatorDrag(mouseX, mouseY) {
+  if (calculatorState.isDragging) {
+    calculatorState.originx = mouseX - calculatorState.dragOffsetX;
+    calculatorState.originy = mouseY - calculatorState.dragOffsetY;
+  }
+}
+
+// Add new function to handle mouse release
+function onCalculatorMouseUp() {
+  calculatorState.isDragging = false;
+}
+
+// Add new function to handle mouse move
+function onCalculatorMouseMove(mouseX, mouseY) {
+  if (currentApp === "calculator" && calculatorState.isDragging) {
+    handleCalculatorDrag(mouseX, mouseY);
   }
 }

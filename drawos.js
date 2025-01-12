@@ -37,6 +37,7 @@ let displayDate = '';
 currentApp = "desktop";
 currentCursor = "cursor";
 currentSeal = 0;
+let isDragging = false;
 
 function draw() {
   clearCanvas();
@@ -88,6 +89,11 @@ function draw() {
     calculatorApp();
   }
 
+  if (isDragging && currentApp === "calculator") {
+    calculatorState.originx = mouseX - calculatorState.dragOffsetX;
+    calculatorState.originy = mouseY - calculatorState.dragOffsetY;
+  }
+  
   // calculator icon
   if (calculatorSprite) { drawSprite(66, 134, calculatorSprite); }
 
@@ -113,8 +119,21 @@ function draw() {
 }
 
 function onMouseDown() {
-  drawLine(mouseXoldold, mouseYoldold, mouseX, mouseY, "#ff6b6b");
+  if (currentApp === "calculator") {
+    const x = calculatorState.originx;
+    const y = calculatorState.originy;
+    
+    if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
+      isDragging = true;
+      currentCursor = "move";
+      // Store the initial click offset
+      calculatorState.dragOffsetX = mouseX - x;
+      calculatorState.dragOffsetY = mouseY - y;
+      return;
+    }
+  }
   
+  drawLine(mouseXoldold, mouseYoldold, mouseX, mouseY, "#ff6b6b");
   drawnLines.push({
     x1: mouseXoldold,
     y1: mouseYoldold,
@@ -129,7 +148,8 @@ function onMouseDownRight() {
 }
 
 function onMouseUp() {
-  
+  isDragging = false;
+  currentCursor = "cursor";
 }
 
 function onMouseUpRight() {
