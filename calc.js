@@ -3,7 +3,7 @@ let calculatorState = {
   result: "0",
   display: "0",
   width: 125,
-  height: 108,
+  height: 100,
   originx: 65,
   originy: 20,
   isDragging: false,
@@ -34,24 +34,29 @@ function calculatorApp() {
   const x = calculatorState.originx;
   const y = calculatorState.originy;
   
+  // Calculate dynamic measurements
+  const titleHeight = 12;
+  const displayHeight = Math.round(calculatorState.height * 0.15);
+  const displayMargin = Math.round(calculatorState.height * 0.05);
+  const buttonAreaHeight = calculatorState.height - titleHeight - displayHeight - (displayMargin * 2);
+  const buttonHeight = Math.floor(buttonAreaHeight / 5) - 3;
+  
   // Main calculator body
   drawRect(x, y, x + calculatorState.width, y + calculatorState.height, calcColors.body, true, 4);
-
-  // Title
-  drawText("Calculator", x + 5, y + 4, calcColors.title, "small");
+  drawRect(x, y, x + calculatorState.width, y + calculatorState.height, calcColors.buttonBack, false, 4);
   
-  // Minimize button
+  // Title bar elements
+  drawText("Calculator", x + 5, y + 4, calcColors.title, "small");
   drawRect(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9, calcColors.minimizeRect, true, 2);
   drawLine(x + calculatorState.width - 16, y + 6, x + calculatorState.width - 14, y + 6, calcColors.minimizeLine);
-  
-  // Close button
   drawRect(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9, calcColors.closeRect, true, 2);
   drawLine(x + calculatorState.width - 7, y + 5, x + calculatorState.width - 5, y + 7, calcColors.closeLine);
   drawLine(x + calculatorState.width - 5, y + 5, x + calculatorState.width - 7, y + 7, calcColors.closeLine);
   
   // Display
-  drawRect(x + 5, y + 13, x + calculatorState.width - 5, y + 28, calcColors.display, true, 2); 
-  drawText(calculatorState.display, x + 10, y + 18, calcColors.text, "small");
+  const displayY = y + titleHeight + displayMargin;
+  drawRect(x + 5, displayY, x + calculatorState.width - 5, displayY + displayHeight, calcColors.display, true, 2);
+  drawText(calculatorState.display, x + 10, displayY + 5, calcColors.text, "small");
   
   const buttons = [
     ["C", "^", "(", ")"],
@@ -62,41 +67,40 @@ function calculatorApp() {
   ];
   
   // Draw buttons
-  let buttonY = y + 33;
-  const buttonWidth = Math.round((calculatorState.width - 25) / 4); // Divide available space by 4 buttons
+  let buttonY = displayY + displayHeight + displayMargin;
+  const buttonWidth = Math.round((calculatorState.width - 25) / 4);
+  
   buttons.forEach((row) => {
     let buttonX = x + 5;
     row.forEach((btn) => {
-      drawRect(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10, calcColors.buttonBack, true, 2);
-      drawText(btn, buttonX + Math.floor(buttonWidth/2), buttonY + 3, calcColors.text, "small");
-      buttonX += buttonWidth + 5; // Add small gap between buttons
+      drawRect(buttonX, buttonY, buttonX + buttonWidth, buttonY + buttonHeight, calcColors.buttonBack, true, 2);
+      drawText(btn, buttonX + Math.floor(buttonWidth/2), buttonY + Math.floor(buttonHeight/2)-2, calcColors.text, "small");
+      buttonX += buttonWidth + 5;
     });
-    buttonY += 15;
+    buttonY += buttonHeight + 3;
   });
   
-  // Update cursor
-  if (isMouseWithin(x + 107, y + 3, x + 113, y + 9)) {
+  // Cursor handling
+  if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
     currentCursor = "pointer";
-  } else if (isMouseWithin(x + 116, y + 3, x + 122, y + 9)) {
+  } else if (isMouseWithin(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9)) {
     currentCursor = "pointer";
   } else if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
     currentCursor = "move";
-  } else {
-    // Check if mouse is over any calculator button
+  } else if (isMouseWithin(x, y, x + calculatorState.width, y + calculatorState.height)) {
     let isOverButton = false;
-    let buttonY = y + 33;
-    const buttonWidth = Math.round((calculatorState.width - 25) / 4);
+    let checkButtonY = displayY + displayHeight + displayMargin;
     
     for (let row = 0; row < 5; row++) {
       let buttonX = x + 5;
       for (let col = 0; col < 4; col++) {
-        if (isMouseWithin(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10)) {
+        if (isMouseWithin(buttonX, checkButtonY, buttonX + buttonWidth, checkButtonY + buttonHeight)) {
           isOverButton = true;
           break;
         }
         buttonX += buttonWidth + 5;
       }
-      buttonY += 15;
+      checkButtonY += buttonHeight + 3;
       if (isOverButton) break;
     }
     
@@ -127,16 +131,20 @@ function handleCalculatorInput(button) {
       calculatorState.equation += button;
     }
   }
-  
   calculatorState.display = calculatorState.equation;
 }
 
 function onCalculatorMouseClick() {
   const x = calculatorState.originx;
   const y = calculatorState.originy;
-
+  
   if (currentApp === "calculator") {
-    // Check if clicking title bar area (excluding buttons)
+    const titleHeight = 12;
+    const displayHeight = Math.round(calculatorState.height * 0.15);
+    const displayMargin = Math.round(calculatorState.height * 0.05);
+    const buttonAreaHeight = calculatorState.height - titleHeight - displayHeight - (displayMargin * 2);
+    const buttonHeight = Math.round(buttonAreaHeight / 5) - 3;
+    
     if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
       calculatorState.isDragging = true;
       calculatorState.dragOffsetX = mouseX - calculatorState.originx;
@@ -155,9 +163,12 @@ function onCalculatorMouseClick() {
         result: "0",
         display: "0",
         width: 125,
-        height: 108,
+        height: 100,
         originx: 65,
-        originy: 20
+        originy: 20,
+        isDragging: false,
+        dragOffsetX: 0,
+        dragOffsetY: 0
       };
     }
     
@@ -169,35 +180,27 @@ function onCalculatorMouseClick() {
       ["0", ".", "=", "+"]
     ];
     
-    let buttonY = y + 33;
+    const displayY = y + titleHeight + displayMargin;
+    let buttonY = displayY + displayHeight + displayMargin;
     const buttonWidth = Math.round((calculatorState.width - 25) / 4);
+    
     buttons.forEach((row) => {
       let buttonX = x + 5;
       row.forEach((btn) => {
-        if (isMouseWithin(buttonX, buttonY, buttonX + buttonWidth, buttonY + 10)) {
+        if (isMouseWithin(buttonX, buttonY, buttonX + buttonWidth, buttonY + buttonHeight)) {
           handleCalculatorInput(btn);
         }
         buttonX += buttonWidth + 5;
       });
-      buttonY += 15;
+      buttonY += buttonHeight + 3;
     });
   }
 }
 
-// Add this new function to handle dragging
-function handleCalculatorDrag(mouseX, mouseY) {
-  if (calculatorState.isDragging) {
-    calculatorState.originx = mouseX - calculatorState.dragOffsetX;
-    calculatorState.originy = mouseY - calculatorState.dragOffsetY;
-  }
-}
-
-// Add new function to handle mouse release
 function onCalculatorMouseUp() {
   calculatorState.isDragging = false;
 }
 
-// Add new function to handle mouse move
 function onCalculatorMouseMove(mouseX, mouseY) {
   if (currentApp === "calculator" && calculatorState.isDragging) {
     handleCalculatorDrag(mouseX, mouseY);
