@@ -35,7 +35,7 @@ function draw() {
   clearCanvas();
 
   // dark background / seal background
-  if (backgroundSprite === sealBgSprite) {
+  if (backgroundSprite && sealBgSprite && backgroundSprite === sealBgSprite) {
     drawSprite(0, 0, backgroundSprite);
   } else {
     drawRect(0, 0, 255, 144, "#343a40", true);
