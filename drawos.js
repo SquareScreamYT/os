@@ -39,22 +39,30 @@ currentCursor = "cursor";
 currentSeal = 0;
 let isDragging = false;
 
+const colors = {
+  background: hexColor("#343a40"),
+  menuBar: hexColor("#495057"),
+  text: hexColor("#f8f9fa"),
+  taskbar: hexColor("#868e96"),
+  mouseLaser: hexColor("#ff6b6b"),
+};
+
 function draw() {
   clearCanvas();
 
   // dark background / seal background
-  if (currentSeal % 3 == 0) { drawRect(0, 0, 255, 144, "#343a40", true); }
+  if (currentSeal % 3 == 0) { drawRect(0, 0, 255, 144, colors.background, true); }
   if (backgroundSprite && sealBgSprite && sealBgSprite2) {
     if (currentSeal % 3 == 1) { drawSprite(0, 0, sealBgSprite); }
     if (currentSeal % 3 == 2) { drawSprite(0, 0, sealBgSprite2); }
-    if (currentSeal % 3 == 0) { drawRect(0, 0, 255, 144, "#343a40", true); }
+    if (currentSeal % 3 == 0) { drawRect(0, 0, 255, 144, colors.background, true); }
   }
 
   // blue background
   // if (backgroundSprite) { drawSprite(0, 0, backgroundSprite); }
 
   // menu bar
-  drawRect(0, 0, 255, 9, "#495057", true);
+  drawRect(0, 0, 255, 9, colors.menuBar, true);
   // logo
   if (logoSprite) { drawSprite(1, 1, logoSprite); }
   // time & date
@@ -74,10 +82,10 @@ function draw() {
     }).toUpperCase();
     lastTimeUpdate = currentTimestamp;
   }
-  drawText(displayTime, 223, 2, "#f8f9fa", "small");
-  drawText(displayDate, 175, 2, "#f8f9fa", "small");
+  drawText(displayTime, 223, 2, colors.text, "small");
+  drawText(displayDate, 175, 2, colors.text, "small");
   // taskbar
-  drawRect(64, 132, 191, 143, "#868e96", true, 2);
+  drawRect(64, 132, 191, 143, colors.taskbar, true, 2);
 
   if (isMouseWithin(66, 134, 66+6, 134+8) || isMouseWithin(180, 134, 180+6, 134+8)) {
     currentCursor = "pointer";
@@ -133,13 +141,13 @@ function onMouseDown() {
     }
   }
   
-  drawLine(mouseXoldold, mouseYoldold, mouseX, mouseY, "#ff6b6b");
+  drawLine(mouseXoldold, mouseYoldold, mouseX, mouseY, colors.mouse);
   drawnLines.push({
     x1: mouseXoldold,
     y1: mouseYoldold,
     x2: mouseX,
     y2: mouseY,
-    color: "#ff6b6b"
+    color: colors.mouse
   });
 }
 
