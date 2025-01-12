@@ -60,6 +60,12 @@ function draw() {
   // taskbar
   drawRect(64, 132, 191, 143, "#868e96", true, 2);
 
+  if (isMouseWithin(66, 134, 66+6, 134+8)) {
+    currentCursor = "pointer";
+  } else {
+    currentCursor = "cursor";
+  }
+
   if (currentApp == "calculator") {
     calculatorApp();
   }
@@ -70,12 +76,6 @@ function draw() {
   //for (let line of drawnLines) {
   //  drawLine(line.x1, line.y1, line.x2, line.y2, line.color);
   //}
-
-  if (isMouseWithin(66, 134, 66+6, 134+8)) {
-    currentCursor = "pointer";
-  } else {
-    currentCursor = "cursor";
-  }
   if (cursorSprite && currentCursor == "cursor") { drawSprite(mouseX-2, mouseY, cursorSprite); }
   if (pointerSprite && currentCursor == "pointer") { drawSprite(mouseX-2, mouseY, pointerSprite); }
 

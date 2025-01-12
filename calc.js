@@ -40,10 +40,10 @@ function calculatorApp() {
 
   if (isMouseWithin(172, 23, 178, 29)) {
     currentCursor = "pointer";
-  }
-  
-  if (isMouseWithin(181, 23, 187, 29)) {
+  } else if (isMouseWithin(181, 23, 187, 29)) {
     currentCursor = "pointer";
+  } else {
+    currentCursor = "cursor";
   }
 }
 
