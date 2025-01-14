@@ -1,6 +1,6 @@
 <h1>sqOS</h1>
 
-sqOS is JavaScript-based OS project created for fun.
+sqOS is JavaScript-based virtual-OS project created for fun.
 
 Contributors:
 - [Moka](https://github.com/DawnStar907)
