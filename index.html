@@ -11,7 +11,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 110vh;
       margin: 0;
       background-color: #f8f9fa;
       padding: 0;
@@ -75,19 +75,21 @@
   <script>
     // JavaScript to handle footer visibility after 100vh scroll
     window.addEventListener('scroll', function() {
-      const footer = document.querySelector('footer');
-      const scrollPosition = window.scrollY;
-
-      // Show footer after scrolling past 100vh
-      if (scrollPosition >= window.innerHeight) {
-        footer.style.opacity = 1;
-        footer.style.visibility = 'visible';
-        footer.style.transition = 'opacity 0.3s ease, visibility 0s'; // Remove delay on visibility transition
-      } else {
-        footer.style.opacity = 0;
-        footer.style.visibility = 'hidden';
-        footer.style.transition = 'opacity 0.3s ease, visibility 0s 0.3s'; // Add delay when hiding
-      }
+        const footer = document.querySelector('footer');
+        const scrollPosition = window.scrollY;
+    
+        console.log(`Scroll Position: ${scrollPosition}`);
+    
+        // Show footer after scrolling past 100vh
+        if (scrollPosition >= window.innerHeight) {
+            footer.style.opacity = 1;
+            footer.style.visibility = 'visible';
+            footer.style.transition = 'opacity 0.3s ease, visibility 0s'; // Remove delay on visibility transition
+        } else {
+            footer.style.opacity = 0;
+            footer.style.visibility = 'hidden';
+            footer.style.transition = 'opacity 0.3s ease, visibility 0s 0.3s'; // Add delay when hiding
+        }
     });
   </script>
 </body>
