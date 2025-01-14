@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>sqOS Test</title>
-  <!-- Import Nunito Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Link to Google Fonts to import Nunito font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 110vh;
+      height: 100vh;
       margin: 0;
       background-color: #f8f9fa;
       padding: 0;
       box-sizing: border-box;
-      overflow: auto; /* Allow scrolling */
-      font-family: 'Nunito', sans-serif;
+      overflow: hidden; 
+      font-family: 'Nunito', sans-serif; /* Apply Nunito font globally */
     }
     #pixelCanvas {
-      width: 90vw;
+      width: 90vw; 
       height: 90vh;
-      object-fit: contain;
+      object-fit: contain; 
       image-rendering: pixelated;
       cursor: none;
     }
@@ -33,27 +33,20 @@
       height: 1px;
     }
     footer {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #343a40;
-      color: white;
-      padding: 10px 20px;
+      position: absolute;
+      bottom: 20px;
       width: 100%;
       text-align: center;
-      box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0s 0.3s;
+      font-size: 1rem;
+      color: #333;
     }
     footer a {
-      color: #f8f9fa;
+      color: #007bff;
       text-decoration: none;
       font-weight: 600;
     }
     footer a:hover {
-      color: #ffb400;
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -61,8 +54,9 @@
   <canvas id="pixelCanvas" width="256" height="144"></canvas>
   <canvas id="fontCanvas"></canvas>
   
+  <!-- Footer with GitHub link -->
   <footer>
-    <a href="https://github.com/SquareScreamYT/os/" target="_blank">Github Link!!</a>
+    <a href="https://github.com/SquareScreamYT/os/" target="_blank">GitHub Link!!</a>
   </footer>
   
   <script src="font.js"></script>
@@ -71,26 +65,74 @@
   <script src="main.js"></script>
   <script src="calc.js"></script>
   <script src="drawos.js"></script>
-
-  <script>
-    // JavaScript to handle footer visibility after 100vh scroll
-    window.addEventListener('scroll', function() {
-        const footer = document.querySelector('footer');
-        const scrollPosition = window.scrollY;
-    
-        console.log(`Scroll Position: ${scrollPosition}`);
-    
-        // Show footer after scrolling past 100vh
-        if (scrollPosition >= window.innerHeight) {
-            footer.style.opacity = 1;
-            footer.style.visibility = 'visible';
-            footer.style.transition = 'opacity 0.3s ease, visibility 0s'; // Remove delay on visibility transition
-        } else {
-            footer.style.opacity = 0;
-            footer.style.visibility = 'hidden';
-            footer.style.transition = 'opacity 0.3s ease, visibility 0s 0.3s'; // Add delay when hiding
-        }
-    });
-  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sqOS Test</title>
+  <!-- Link to Google Fonts to import Nunito font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8f9fa;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden; 
+      font-family: 'Nunito', sans-serif; /* Apply Nunito font globally */
+    }
+    #pixelCanvas {
+      width: 90vw; 
+      height: 90vh;
+      object-fit: contain; 
+      image-rendering: pixelated;
+      cursor: none;
+    }
+    #fontCanvas {
+      position: absolute;
+      visibility: hidden;
+      width: 1px;
+      height: 1px;
+    }
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      color: #333;
+    }
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pixelCanvas" width="256" height="144"></canvas>
+  <canvas id="fontCanvas"></canvas>
+  
+  <!-- Footer with GitHub link -->
+  <footer>
+    <a href="https://github.com/SquareScreamYT/os/" target="_blank">GitHub Link!!</a>
+  </footer>
+  
+  <script src="font.js"></script>
+  <script src="smallfont.js"></script>
+  <script src="graphics.js"></script>
+  <script src="main.js"></script>
+  <script src="calc.js"></script>
+  <script src="drawos.js"></script>
 </body>
 </html>
