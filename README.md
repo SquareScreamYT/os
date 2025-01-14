@@ -7,7 +7,8 @@ Contributors:
 - [Cat](https://github.com/yourmom64209)
 - [TheZipCreator](https://github.com/https://github.com/TheZipCreator)
 <hr>
-Roadmap:
+
+<h1>Roadmap:</h1>
 
 - Fullscreen windows
 - Menu bar
