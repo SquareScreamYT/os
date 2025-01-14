@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>sqOS Test</title>
+  <!-- Import Nunito Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     body {
       display: flex;
@@ -14,13 +16,13 @@
       background-color: #f8f9fa;
       padding: 0;
       box-sizing: border-box;
-      overflow: hidden; 
+      overflow: auto; /* Allow scrolling */
+      font-family: 'Nunito', sans-serif;
     }
     #pixelCanvas {
-      /* border: 2px solid #adb5bd; */
-      width: 90vw; 
+      width: 90vw;
       height: 90vh;
-      object-fit: contain; 
+      object-fit: contain;
       image-rendering: pixelated;
       cursor: none;
     }
@@ -30,6 +32,26 @@
       width: 1px;
       height: 1px;
     }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #343a40;
+      color: white;
+      padding: 10px 20px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.2);
+    }
+    footer a {
+      color: #f8f9fa;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    footer a:hover {
+      color: #ffb400;
+    }
   </style>
 </head>
 <body>
@@ -37,7 +59,7 @@
   <canvas id="fontCanvas"></canvas>
   
   <footer>
-  <a href="https://github.com/SquareScreamYT/os/"> Github Link!!</a>
+    <a href="https://github.com/SquareScreamYT/os/" target="_blank">Github Link!!</a>
   </footer>
   
   <script src="font.js"></script>
