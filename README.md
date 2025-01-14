@@ -8,10 +8,10 @@ Contributors:
 - [TheZipCreator](https://github.com/https://github.com/TheZipCreator)
 
 <h1>Features (At the moment):</h1>
-<h2>- Functioning calculator</h2>
-<h2>- Dock</h2>
-<h2>- Various bundled wallpapers with selector</h2>
-<h2>- Movable windows</h2>
+- Functioning calculator
+- Dock
+- Various bundled wallpapers with selector
+- Movable windows
 
 <h1>Roadmap:</h1>
 
