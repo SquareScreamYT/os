@@ -8,14 +8,14 @@ Contributors:
 - [TheZipCreator](https://github.com/https://github.com/TheZipCreator)
 
 # Features (At the moment):
----
+
 - Functioning calculator 
 - Dock 
 - Various bundled wallpapers with selector 
 - Movable windows 
 
 # Roadmap:
----
+
 - Fullscreen windows
 - Menu bar
 - File system
