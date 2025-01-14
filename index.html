@@ -17,12 +17,11 @@
       padding: 0;
       box-sizing: border-box;
       overflow: hidden; 
-      font-family: 'Nunito', sans-serif; /* Apply Nunito font globally */
+      font-family: 'Nunito', sans-serif;
     }
     #pixelCanvas {
-      width: 90vw; 
-      height: 90vh;
-      object-fit: contain; 
+      width: 100%;  /* Adjust width to take full space */
+      height: 100%; /* Adjust height to take full space */
       image-rendering: pixelated;
       cursor: none;
     }
@@ -54,76 +53,6 @@
   <canvas id="pixelCanvas" width="256" height="144"></canvas>
   <canvas id="fontCanvas"></canvas>
   
-  <!-- Footer with GitHub link -->
-  <footer>
-    <a href="https://github.com/SquareScreamYT/os/" target="_blank">GitHub Link!!</a>
-  </footer>
-  
-  <script src="font.js"></script>
-  <script src="smallfont.js"></script>
-  <script src="graphics.js"></script>
-  <script src="main.js"></script>
-  <script src="calc.js"></script>
-  <script src="drawos.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sqOS Test</title>
-  <!-- Link to Google Fonts to import Nunito font -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f8f9fa;
-      padding: 0;
-      box-sizing: border-box;
-      overflow: hidden; 
-      font-family: 'Nunito', sans-serif; /* Apply Nunito font globally */
-    }
-    #pixelCanvas {
-      width: 90vw; 
-      height: 90vh;
-      object-fit: contain; 
-      image-rendering: pixelated;
-      cursor: none;
-    }
-    #fontCanvas {
-      position: absolute;
-      visibility: hidden;
-      width: 1px;
-      height: 1px;
-    }
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 1rem;
-      color: #333;
-    }
-    footer a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="pixelCanvas" width="256" height="144"></canvas>
-  <canvas id="fontCanvas"></canvas>
-  
-  <!-- Footer with GitHub link -->
   <footer>
     <a href="https://github.com/SquareScreamYT/os/" target="_blank">GitHub Link!!</a>
   </footer>
