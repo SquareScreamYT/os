@@ -1,4 +1,4 @@
-let cursorSprite, pointerSprite, moveSprite, logoSprite, horizontalSprite, verticalSprite, diagonalSprite, diagonal2Sprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
+let cursorSprite, pointerSprite, moveSprite, grabSprite, grabbingSprite, logoSprite, horizontalSprite, verticalSprite, diagonalSprite, diagonal2Sprite, backgroundSprite, calculatorSprite, sealSprite, sealBgSprite, sealBgSprite2;
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/cursor.png").then(hexArray => {
   cursorSprite = blackToTransparent(hexArray)
 });
@@ -7,6 +7,12 @@ getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/image
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/move.png").then(hexArray => {
   moveSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/grab.png").then(hexArray => {
+  grabSprite = blackToTransparent(hexArray)
+});
+getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/grabbing.png").then(hexArray => {
+  grabbingSprite = blackToTransparent(hexArray)
 });
 getImageHexArray("https://raw.githubusercontent.com/SquareScreamYT/os/main/images/logo.png").then(hexArray => {
   logoSprite = blackToTransparent(hexArray)
@@ -130,6 +136,8 @@ function draw() {
   if (verticalSprite && currentCursor == "vertical") { drawSprite(mouseX-2, mouseY, verticalSprite); }
   if (diagonalSprite && currentCursor == "diagonal") { drawSprite(mouseX-2, mouseY, diagonalSprite); }
   if (diagonal2Sprite && currentCursor == "diagonal2") { drawSprite(mouseX-2, mouseY, diagonal2Sprite); }
+  if (grabSprite && currentCursor == "grab") { drawSprite(mouseX-2, mouseY, grabSprite); }
+  if (grabbingSprite && currentCursor == "grabbing") { drawSprite(mouseX-2, mouseY, grabbingSprite); }
 
   if (mouseDown) {
     onMouseDown();
@@ -149,7 +157,7 @@ function onMouseDown() {
     
     if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
       isDragging = true;
-      currentCursor = "move";
+      currentCursor = "grabbing";
       // Store the initial click offset
       calculatorState.dragOffsetX = mouseX - x;
       calculatorState.dragOffsetY = mouseY - y;
@@ -173,7 +181,9 @@ function onMouseDownRight() {
 
 function onMouseUp() {
   isDragging = false;
-  currentCursor = "cursor";
+  if (currentApp === "calculator" && calculatorState.isDragging == true) {
+    onCalculatorMouseUp()
+  }
 }
 
 function onMouseUpRight() {
