@@ -8,7 +8,12 @@ let calculatorState = {
   originy: 20,
   isDragging: false,
   dragOffsetX: 0,
-  dragOffsetY: 0
+  dragOffsetY: 0,
+  prevWidth: null,
+  prevHeight: null,
+  prevX: null,
+  prevY: null,
+  isFullscreen: false
 };
 
 function handleCalculatorDrag(mouseX, mouseY) {
@@ -85,11 +90,13 @@ function calculatorApp() {
   });
   
   // Cursor handling
-  if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
+  if (isMouseWithin(x + calculatorState.width - 27, y + 3, x + calculatorState.width - 21, y + 9)) {
+    currentCursor = "pointer";
+  } else if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
     currentCursor = "pointer";
   } else if (isMouseWithin(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9)) {
     currentCursor = "pointer";
-  } else if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
+  } else if (isMouseWithin(x, y, x + calculatorState.width - 32, y + 12)) {
     currentCursor = calculatorState.isDragging ? "grabbing" : "grab";
   } else if (isMouseWithin(x, y, x + calculatorState.width, y + calculatorState.height)) {
     let isOverButton = false;
@@ -153,7 +160,27 @@ function onCalculatorMouseClick() {
       calculatorState.isDragging = true;
       calculatorState.dragOffsetX = mouseX - calculatorState.originx;
       calculatorState.dragOffsetY = mouseY - calculatorState.originy;
-      return;
+    }
+    if (isMouseWithin(x + calculatorState.width - 27, y + 3, x + calculatorState.width - 21, y + 9)) {
+      calculatorState.isFullscreen = !calculatorState.isFullscreen;
+
+      if (calculatorState.isFullscreen) {
+        calculatorState.prevWidth = calculatorState.width;
+        calculatorState.prevHeight = calculatorState.height;
+        calculatorState.prevX = calculatorState.originx;
+        calculatorState.prevY = calculatorState.originy;
+        
+        calculatorState.width = 255;
+        calculatorState.height = 122;
+        calculatorState.originx = 0;
+        calculatorState.originy = 10;
+      } else {
+        // Restore previous position and size
+        calculatorState.width = calculatorState.prevWidth || 125;
+        calculatorState.height = calculatorState.prevHeight || 100;
+        calculatorState.originx = calculatorState.prevX || 65;
+        calculatorState.originy = calculatorState.prevY || 20;
+      }
     }
 
     if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {

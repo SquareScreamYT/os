@@ -155,10 +155,9 @@ function onMouseDown() {
     const x = calculatorState.originx;
     const y = calculatorState.originy;
     
-    if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
+    if (isMouseWithin(x, y, x + calculatorState.width - 32, y + 12)) {
       isDragging = true;
       currentCursor = "grabbing";
-      // Store the initial click offset
       calculatorState.dragOffsetX = mouseX - x;
       calculatorState.dragOffsetY = mouseY - y;
       return;
