@@ -55,7 +55,12 @@ function calculatorApp() {
   // Title bar elements
   drawText("Calculator", x + 5, y + 4, calcColors.title, "small");
   drawRect(x + calculatorState.width - 27, y + 3, x + calculatorState.width - 21, y + 9, calcColors.fullscreenRect, true, 2);
-  drawRect(x + calculatorState.width - 25, y + 5, x + calculatorState.width - 23, y + 7, calcColors.fullscreenLine);
+  if (!calculatorState.isFullscreen) {
+    drawLine(x + calculatorState.width - 25, y + 6, x + calculatorState.width - 23, y + 6, calcColors.fullscreenLine); // horizontal
+    drawLine(x + calculatorState.width - 24, y + 5, x + calculatorState.width - 24, y + 7, calcColors.fullscreenLine); // vertical
+  } else {
+    drawRect(x + calculatorState.width - 25, y + 5, x + calculatorState.width - 23, y + 7, calcColors.fullscreenLine);
+  }
   drawRect(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9, calcColors.minimizeRect, true, 2);
   drawLine(x + calculatorState.width - 16, y + 6, x + calculatorState.width - 14, y + 6, calcColors.minimizeLine);
   drawRect(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9, calcColors.closeRect, true, 2);
