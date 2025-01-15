@@ -1,4 +1,4 @@
-<h1>sqOS</h1>
+# sqOS
 
 sqOS is JavaScript-based virtual-OS project created for fun.
 
@@ -7,14 +7,14 @@ Contributors:
 - [Cat](https://github.com/yourmom64209)
 - [TheZipCreator](https://github.com/https://github.com/TheZipCreator)
 
-# Features (At the moment):
+## Features (At the moment):
 
-- Functioning calculator 
+- Calculator 
 - Dock 
-- Various bundled wallpapers with selector 
+- Various seal wallpapers
 - Movable windows 
 
-# Roadmap:
+## Roadmap:
 
 - Fullscreen windows
 - Menu bar
