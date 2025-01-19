@@ -26,6 +26,8 @@ function handleCalculatorDrag(mouseX, mouseY) {
 const calcColors = {
   body: hexColor("#495057"),
   title: hexColor("#f8f9fa"),
+  fullscreenRect: hexColor("#51cf66"),
+  fullscreenLine: hexColor("#37b24d"),
   minimizeRect: hexColor("#fcc419"),
   minimizeLine: hexColor("#f59f00"),
   closeRect: hexColor("#ff6b6b"),
@@ -33,8 +35,6 @@ const calcColors = {
   display: hexColor("#212529"),
   text: hexColor("#f8f9fa"),
   buttonBack: hexColor("#868e96"),
-  fullscreenRect: hexColor("#40c057"),
-  fullscreenLine: hexColor("#2b8a3e")
 };
 
 function calculatorApp() {
