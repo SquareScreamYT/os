@@ -99,8 +99,8 @@ function draw() {
     }).toUpperCase();
     lastTimeUpdate = currentTimestamp;
   }
-  drawText(displayTime, 223, 2, colors.text, "small");
-  drawText(displayDate, 175, 2, colors.text, "small");
+  drawText(displayTime, 158, 2, colors.text, "small");
+  drawText(displayDate, 110, 2, colors.text, "small");
   // taskbar
   drawRect(64, 132, 191, 143, colors.taskbar, true, 2);
 
