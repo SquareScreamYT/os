@@ -27,7 +27,7 @@ async function getImageHexArray(link) {
         const b = data[i + 2];
         let a = data[i + 3];
         const hex = colorRGB(r, g, b, a);
-        
+
         if (i % (img.width * 4) === 0) {
           hexArray.push([]);
         }
@@ -59,21 +59,21 @@ function drawText(text, x, y, color, font = 'sqpixels') {
   let currentX = x;
   let lineY = y; 
   const lineHeight = font === 'small' ? 6 : 7;
-  
+
   for (let i = 0; i < text.length; i++) {
     let char = text[i];
-    
+
     if (char === '\n') {
       currentX = x;
       lineY += lineHeight;
       continue;
     }
-    
+
     const fontArray = font === 'small' ? smallfont : sqpixelsArray;
     if (!fontArray || !fontArray[char]) continue;
-    
+
     const charArray = fontArray[char];
-    
+
     if (font === 'small') {
       for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 3; col++) {
@@ -94,7 +94,7 @@ function drawText(text, x, y, color, font = 'sqpixels') {
           }
         }
       }
-      
+
       for (let row = 0; row < charArray.length - 2; row++) {
         const pixels = charArray[row];
         for (let col = 4; col < pixels.length; col++) {
@@ -139,7 +139,7 @@ function getMousePos(event) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;
   const scaleY = canvas.height / rect.height;
-  
+
   mouseX = Math.floor((event.clientX - rect.left) * scaleX);
   mouseY = Math.floor((event.clientY - rect.top) * scaleY);
   return [mouseX, mouseY];
@@ -147,19 +147,17 @@ function getMousePos(event) {
 
 canvas.addEventListener('mousemove', (event) => {
   const [newMouseX, newMouseY] = getMousePos(event);
-  
-  // Handle scroll bar dragging
+
   if (mouseDown && isTextMode && textContent.length > visibleLines) {
     if (mouseXold >= WIDTH - scrollBarWidth) {
-      // We're dragging the scroll bar
+
       const contentHeight = textContent.length;
       const availableScrollSpace = HEIGHT;
       const dragRatio = newMouseY / availableScrollSpace;
       scrollOffset = Math.floor(dragRatio * (contentHeight - visibleLines));
-      
-      // Clamp scroll offset
+
       scrollOffset = Math.max(0, Math.min(scrollOffset, contentHeight - visibleLines));
-      
+
       mouseX = newMouseX;
       mouseY = newMouseY;
       mouseXold = mouseX;
@@ -167,28 +165,26 @@ canvas.addEventListener('mousemove', (event) => {
       return;
     }
   }
-  
-  // Handle text selection while dragging
+
   if (mouseDown && isTextMode) {
     const lineIndex = Math.floor((newMouseY - 4) / lineHeight) + scrollOffset;
     if (lineIndex >= 0 && lineIndex < textContent.length) {
-      // Find closest character position
+
       const line = textContent[lineIndex];
       let bestPos = 0;
       let bestDistance = Infinity;
-      
+
       for (let i = 0; i <= line.length; i++) {
         const textWidth = measureTextWidth(line.substring(0, i));
         const charX = 4 + textWidth;
         const distance = Math.abs(newMouseX - charX);
-        
+
         if (distance < bestDistance) {
           bestDistance = distance;
           bestPos = i;
         }
       }
-      
-      // Only activate selection if we've moved from the initial position
+
       if (Math.abs(selectionStartX - bestPos) > 0 || selectionStartY !== lineIndex) {
         if (!selectionActive) {
           selectionActive = true;
@@ -196,22 +192,20 @@ canvas.addEventListener('mousemove', (event) => {
         selectionEndX = bestPos;
         selectionEndY = lineIndex;
       }
-      
-      // Also update cursor position
+
       cursorX = bestPos;
       cursorY = lineIndex;
-      
-      // Auto-scroll when selecting text near the edges
+
       if (newMouseY < 20) {
-        // Auto-scroll up
+
         scrollOffset = Math.max(0, scrollOffset - 1);
       } else if (newMouseY > HEIGHT - 20) {
-        // Auto-scroll down
+
         scrollOffset = Math.min(textContent.length - visibleLines, scrollOffset + 1);
       }
     }
   }
-  
+
   mouseXold = mouseX;
   mouseYold = mouseY;
   mouseX = newMouseX;
@@ -276,23 +270,20 @@ canvas.addEventListener('wheel', (event) => {
   }
 });
 
-// Track key states
 const keysDown = new Set();
 
 document.addEventListener('keydown', (event) => {
-  // Update modifier key states directly from the event
+
   altKeyPressed = event.altKey;
   shiftKeyPressed = event.shiftKey;
   ctrlKeyPressed = event.ctrlKey;
-  
-  // Prevent default browser actions for keyboard shortcuts we're handling
+
   if ((event.key === 'a' || event.key === 'c' || event.key === 'v' || event.key === 'x') && event.ctrlKey) {
     event.preventDefault();
-    
-    // Handle shortcuts directly here
+
     if (isTextMode) {
       if (event.key === 'a') {
-        // Select all text
+
         selectionActive = true;
         selectionStartX = 0;
         selectionStartY = 0;
@@ -300,7 +291,7 @@ document.addEventListener('keydown', (event) => {
         selectionEndY = textContent.length - 1;
       } 
       else if (event.key === 'c' && selectionActive) {
-        // Copy selected text to clipboard
+
         const selectedText = getSelectedText();
         if (selectedText) {
           navigator.clipboard.writeText(selectedText).catch(err => {
@@ -309,7 +300,7 @@ document.addEventListener('keydown', (event) => {
         }
       }
       else if (event.key === 'v') {
-        // Paste from clipboard
+
         navigator.clipboard.readText().then(text => {
           if (selectionActive) {
             deleteSelection();
@@ -320,7 +311,7 @@ document.addEventListener('keydown', (event) => {
         });
       }
       else if (event.key === 'x' && selectionActive) {
-        // Cut selected text to clipboard
+
         const selectedText = getSelectedText();
         if (selectedText) {
           navigator.clipboard.writeText(selectedText).then(() => {
@@ -333,33 +324,29 @@ document.addEventListener('keydown', (event) => {
     }
     return;
   }
-  
-  // For non-shortcut keys, call our handler
+
   onKeyDown(event.key);
 });
 
 document.addEventListener('keyup', (event) => {
-  // Remove key from the set of pressed keys
+
   keysDown.delete(event.key);
-  
-  // Call our handler
+
   onKeyUp(event.key);
 });
 
 document.addEventListener('keypress', (event) => {
-  // Only handle printable characters and not if control is pressed
+
   if (event.key.length === 1 && !event.ctrlKey && !keysDown.has('Control')) {
     onKeyPress(event.key);
   }
 });
 
-// Add a window blur event to reset key states when focus is lost
 window.addEventListener('blur', () => {
   keysDown.clear();
   altKeyPressed = false;
   shiftKeyPressed = false;
   ctrlKeyPressed = false;
 });
-
 
 tick = 0;
