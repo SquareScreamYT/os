@@ -146,13 +146,76 @@ function getMousePos(event) {
 }
 
 canvas.addEventListener('mousemove', (event) => {
-  getMousePos(event);
-  /* if (mouseDown) {
-    drawLine(mouseXold, mouseYold, mouseX, mouseY, "#343a40");
-    drawPixelmap();
-  } */
+  const [newMouseX, newMouseY] = getMousePos(event);
+  
+  // Handle scroll bar dragging
+  if (mouseDown && isTextMode && textContent.length > visibleLines) {
+    if (mouseXold >= WIDTH - scrollBarWidth) {
+      // We're dragging the scroll bar
+      const contentHeight = textContent.length;
+      const availableScrollSpace = HEIGHT;
+      const dragRatio = newMouseY / availableScrollSpace;
+      scrollOffset = Math.floor(dragRatio * (contentHeight - visibleLines));
+      
+      // Clamp scroll offset
+      scrollOffset = Math.max(0, Math.min(scrollOffset, contentHeight - visibleLines));
+      
+      mouseX = newMouseX;
+      mouseY = newMouseY;
+      mouseXold = mouseX;
+      mouseYold = mouseY;
+      return;
+    }
+  }
+  
+  // Handle text selection while dragging
+  if (mouseDown && isTextMode) {
+    const lineIndex = Math.floor((newMouseY - 4) / lineHeight) + scrollOffset;
+    if (lineIndex >= 0 && lineIndex < textContent.length) {
+      // Find closest character position
+      const line = textContent[lineIndex];
+      let bestPos = 0;
+      let bestDistance = Infinity;
+      
+      for (let i = 0; i <= line.length; i++) {
+        const textWidth = measureTextWidth(line.substring(0, i));
+        const charX = 4 + textWidth;
+        const distance = Math.abs(newMouseX - charX);
+        
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestPos = i;
+        }
+      }
+      
+      // Only activate selection if we've moved from the initial position
+      if (Math.abs(selectionStartX - bestPos) > 0 || selectionStartY !== lineIndex) {
+        if (!selectionActive) {
+          selectionActive = true;
+        }
+        selectionEndX = bestPos;
+        selectionEndY = lineIndex;
+      }
+      
+      // Also update cursor position
+      cursorX = bestPos;
+      cursorY = lineIndex;
+      
+      // Auto-scroll when selecting text near the edges
+      if (newMouseY < 20) {
+        // Auto-scroll up
+        scrollOffset = Math.max(0, scrollOffset - 1);
+      } else if (newMouseY > HEIGHT - 20) {
+        // Auto-scroll down
+        scrollOffset = Math.min(textContent.length - visibleLines, scrollOffset + 1);
+      }
+    }
+  }
+  
   mouseXold = mouseX;
   mouseYold = mouseY;
+  mouseX = newMouseX;
+  mouseY = newMouseY;
 });
 
 let wasMouseDown = false;
@@ -213,22 +276,90 @@ canvas.addEventListener('wheel', (event) => {
   }
 });
 
-const keysPressed = {};
+// Track key states
+const keysDown = new Set();
+
+document.addEventListener('keydown', (event) => {
+  // Update modifier key states directly from the event
+  altKeyPressed = event.altKey;
+  shiftKeyPressed = event.shiftKey;
+  ctrlKeyPressed = event.ctrlKey;
+  
+  // Prevent default browser actions for keyboard shortcuts we're handling
+  if ((event.key === 'a' || event.key === 'c' || event.key === 'v' || event.key === 'x') && event.ctrlKey) {
+    event.preventDefault();
+    
+    // Handle shortcuts directly here
+    if (isTextMode) {
+      if (event.key === 'a') {
+        // Select all text
+        selectionActive = true;
+        selectionStartX = 0;
+        selectionStartY = 0;
+        selectionEndX = textContent[textContent.length - 1].length;
+        selectionEndY = textContent.length - 1;
+      } 
+      else if (event.key === 'c' && selectionActive) {
+        // Copy selected text to clipboard
+        const selectedText = getSelectedText();
+        if (selectedText) {
+          navigator.clipboard.writeText(selectedText).catch(err => {
+            console.error('Failed to copy text: ', err);
+          });
+        }
+      }
+      else if (event.key === 'v') {
+        // Paste from clipboard
+        navigator.clipboard.readText().then(text => {
+          if (selectionActive) {
+            deleteSelection();
+          }
+          insertTextAtCursor(text);
+        }).catch(err => {
+          console.error('Failed to paste text: ', err);
+        });
+      }
+      else if (event.key === 'x' && selectionActive) {
+        // Cut selected text to clipboard
+        const selectedText = getSelectedText();
+        if (selectedText) {
+          navigator.clipboard.writeText(selectedText).then(() => {
+            deleteSelection();
+          }).catch(err => {
+            console.error('Failed to cut text: ', err);
+          });
+        }
+      }
+    }
+    return;
+  }
+  
+  // For non-shortcut keys, call our handler
+  onKeyDown(event.key);
+});
+
+document.addEventListener('keyup', (event) => {
+  // Remove key from the set of pressed keys
+  keysDown.delete(event.key);
+  
+  // Call our handler
+  onKeyUp(event.key);
+});
 
 document.addEventListener('keypress', (event) => {
-  if (!keysPressed[event.key]) {
-    keysPressed[event.key] = true;
+  // Only handle printable characters and not if control is pressed
+  if (event.key.length === 1 && !event.ctrlKey && !keysDown.has('Control')) {
     onKeyPress(event.key);
   }
 });
 
-document.addEventListener('keyup', (event) => {
-  keysPressed[event.key] = false;
-  onKeyUp(event.key);
+// Add a window blur event to reset key states when focus is lost
+window.addEventListener('blur', () => {
+  keysDown.clear();
+  altKeyPressed = false;
+  shiftKeyPressed = false;
+  ctrlKeyPressed = false;
 });
 
-document.addEventListener('keydown', (event) => {
-  onKeyDown(event.key);
-});
 
 tick = 0;
