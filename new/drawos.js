@@ -10,6 +10,9 @@ const colors = {
 function draw() {
   clearCanvas();
 
+  drawRect(0, 0, 255, 143, colors.background, true)
+  drawText("hello\nworld\nhello world", 1, 1, colors.text)
+
   if (mouseDown) {
     onMouseDown();
   }

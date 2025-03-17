@@ -24,10 +24,19 @@
       image-rendering: pixelated;
       cursor: none;
     }
+    #fontCanvas {
+      position: absolute;
+      visibility: hidden;
+      width: 1px;
+      height: 1px;
+    }
   </style>
 </head>
 <body>
-  <canvas id="pixelCanvas" width="192" height="108"></canvas>
+  <canvas id="pixelCanvas" width="256" height="144"></canvas>
+  <canvas id="fontCanvas"></canvas>
+  <script src="smallfont.js"></script>
+  <script src="font.js"></script>
   <script src="filesys.js"></script>
   <script src="graphics.js"></script>
   <script src="main.js"></script>

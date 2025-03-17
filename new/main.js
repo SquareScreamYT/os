@@ -55,13 +55,21 @@ function resizeHexArray(hexArray, newWidth, newHeight) {
   return resized;
 }
 
-function drawText(text, x, y, color, font = 'pixel_sans') {
+function drawText(text, x, y, color, font = 'sqpixels') {
   let currentX = x;
+  let lineY = y; 
+  const lineHeight = font === 'small' ? 6 : 7;
   
   for (let i = 0; i < text.length; i++) {
     let char = text[i];
     
-    const fontArray = font === 'small' ? smallfont : pixel_sansArray;
+    if (char === '\n') {
+      currentX = x;
+      lineY += lineHeight;
+      continue;
+    }
+    
+    const fontArray = font === 'small' ? smallfont : sqpixelsArray;
     if (!fontArray || !fontArray[char]) continue;
     
     const charArray = fontArray[char];
@@ -70,7 +78,7 @@ function drawText(text, x, y, color, font = 'pixel_sans') {
       for (let row = 0; row < 6; row++) {
         for (let col = 0; col < 3; col++) {
           if (charArray[row][col] === '.') {
-            setPixel(currentX + col, y + row, color);
+            setPixel(currentX + col, lineY + row, color);
           }
         }
       }
@@ -91,7 +99,7 @@ function drawText(text, x, y, color, font = 'pixel_sans') {
         const pixels = charArray[row];
         for (let col = 4; col < pixels.length; col++) {
           if (pixels[col] === '.') {
-            setPixel(currentX + (col - 4), y + (row - 2), color);
+            setPixel(currentX + (col - 4), lineY + (row - 6), color);
           }
         }
       }
