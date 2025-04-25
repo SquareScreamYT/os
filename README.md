@@ -4,7 +4,7 @@ sqOS is JavaScript-based virtual-OS project created for fun.
 
 Contributors:
 - [Moka](https://github.com/DawnStar907)
-- [Foobar](https://github.com/yourmom64209)
+- [Alex](https://github.com/alexlikescpp)
 - [TheZipCreator](https://github.com/https://github.com/TheZipCreator)
 
 ## Features (At the moment):
