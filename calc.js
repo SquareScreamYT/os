@@ -53,20 +53,19 @@ function calculatorApp() {
   drawRect(x, y, x + calculatorState.width, y + calculatorState.height, calcColors.buttonBack, false, 4);
   
   // Title bar elements
-  drawRect(x + 3, y + 3, x + 9, y + 9, calcColors.fullscreenRect, true, 2);
+  drawText("Calculator", x + 5, y + 4, calcColors.title, "small");
+  drawRect(x + calculatorState.width - 27, y + 3, x + calculatorState.width - 21, y + 9, calcColors.fullscreenRect, true, 2);
   if (!calculatorState.isFullscreen) {
-    drawLine(x + 5, y + 6, x + 7, y + 6, calcColors.fullscreenLine); // horizontal
-    drawLine(x + 6, y + 5, x + 6, y + 7, calcColors.fullscreenLine); // vertical
+    drawLine(x + calculatorState.width - 25, y + 6, x + calculatorState.width - 23, y + 6, calcColors.fullscreenLine); // horizontal
+    drawLine(x + calculatorState.width - 24, y + 5, x + calculatorState.width - 24, y + 7, calcColors.fullscreenLine); // vertical
   } else {
-    drawRect(x + 5, y + 5, x + 7, y + 7, calcColors.fullscreenLine);
+    drawRect(x + calculatorState.width - 25, y + 5, x + calculatorState.width - 23, y + 7, calcColors.fullscreenLine);
   }
-  drawRect(x + 12, y + 3, x + 18, y + 9, calcColors.minimizeRect, true, 2);
-  drawLine(x + 14, y + 6, x + 16, y + 6, calcColors.minimizeLine);
-  drawRect(x + 21, y + 3, x + 27, y + 9, calcColors.closeRect, true, 2);
-  drawLine(x + 23, y + 5, x + 25, y + 7, calcColors.closeLine);
-  drawLine(x + 25, y + 5, x + 23, y + 7, calcColors.closeLine);
-
-  drawText("Calculator", x + 30, y + 4, calcColors.title, "small");
+  drawRect(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9, calcColors.minimizeRect, true, 2);
+  drawLine(x + calculatorState.width - 16, y + 6, x + calculatorState.width - 14, y + 6, calcColors.minimizeLine);
+  drawRect(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9, calcColors.closeRect, true, 2);
+  drawLine(x + calculatorState.width - 7, y + 5, x + calculatorState.width - 5, y + 7, calcColors.closeLine);
+  drawLine(x + calculatorState.width - 5, y + 5, x + calculatorState.width - 7, y + 7, calcColors.closeLine);
   
   // Display
   const displayY = y + titleHeight + displayMargin;
@@ -96,13 +95,13 @@ function calculatorApp() {
   });
   
   // Cursor handling
-  if (isMouseWithin(x + 3, y + 3, x + 9, y + 9)) {
+  if (isMouseWithin(x + calculatorState.width - 27, y + 3, x + calculatorState.width - 21, y + 9)) {
     currentCursor = "pointer";
-  } else if (isMouseWithin(x + 12, y + 3, x + 18, y + 9)) {
+  } else if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
     currentCursor = "pointer";
-  } else if (isMouseWithin(x + 21, y + 3, x + 27, y + 9)) {
+  } else if (isMouseWithin(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9)) {
     currentCursor = "pointer";
-  } else if (isMouseWithin(x + 30, y, x + calculatorState.width - 3, y + 12)) {
+  } else if (isMouseWithin(x, y, x + calculatorState.width - 32, y + 12)) {
     currentCursor = calculatorState.isDragging ? "grabbing" : "grab";
   } else if (isMouseWithin(x, y, x + calculatorState.width, y + calculatorState.height)) {
     let isOverButton = false;
@@ -162,12 +161,12 @@ function onCalculatorMouseClick() {
     const buttonAreaHeight = calculatorState.height - titleHeight - displayHeight - (displayMargin * 2);
     const buttonHeight = Math.round(buttonAreaHeight / 5) - 3;
     
-    if (isMouseWithin(x + 30, y, x + calculatorState.width - 3, y + 12)) {
+    if (isMouseWithin(x, y, x + calculatorState.width - 20, y + 12)) {
       calculatorState.isDragging = true;
       calculatorState.dragOffsetX = mouseX - calculatorState.originx;
       calculatorState.dragOffsetY = mouseY - calculatorState.originy;
     }
-    if (isMouseWithin(x + 3, y + 3, x + 9, y + 9)) {
+    if (isMouseWithin(x + calculatorState.width - 27, y + 3, x + calculatorState.width - 21, y + 9)) {
       calculatorState.isFullscreen = !calculatorState.isFullscreen;
 
       if (calculatorState.isFullscreen) {
@@ -189,11 +188,11 @@ function onCalculatorMouseClick() {
       }
     }
 
-    if (isMouseWithin(x + 12, y + 3, x + 18, y + 9)) {
+    if (isMouseWithin(x + calculatorState.width - 18, y + 3, x + calculatorState.width - 12, y + 9)) {
       currentApp = "desktop";
     }
     
-    if (isMouseWithin(x + 21, y + 3, x + 27, y + 9)) {
+    if (isMouseWithin(x + calculatorState.width - 9, y + 3, x + calculatorState.width - 3, y + 9)) {
       currentApp = "desktop";
       calculatorState = {
         equation: "0",
